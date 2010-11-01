@@ -1,0 +1,30 @@
+﻿<Window x:Class="WpfApplication1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="HebusSniff" Height="700" Width="1280" Icon="/WpfApplication1;component/Images/45.jpg" AllowsTransparency="False" WindowStartupLocation="CenterOwner" Topmost="False" WindowStyle="ThreeDBorderWindow" ResizeMode="CanResizeWithGrip" Background="{StaticResource {x:Static SystemColors.ControlTextBrushKey}}" BorderThickness="1" WindowState="Maximized">
+    <Grid Height="176" Width="1256" Loaded="Grid_Loaded" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+        <Grid.Background>
+            <ImageBrush ImageSource="/WpfApplication1;component/Images/Konachan.com%20-%2079862%20k-on!%20manabe_nodoka.jpg" Stretch="UniformToFill" TileMode="None" />
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="367*" />
+            <RowDefinition Height="0" />
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="194,9,0,0" Name="textBlockLimit" Text="Limit" VerticalAlignment="Top" Width="63" FontSize="15" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="257,9,0,0" Name="textBoxLimit" VerticalAlignment="Top" Width="121" FontSize="15" Text="" />
+        <Button Content="GO !" Height="85" HorizontalAlignment="Left" Margin="12,48,0,0" Name="buttonGo" VerticalAlignment="Top" Width="149" FontSize="15" GotFocus="Window_gotFocus" Click="buttonGo_Click" />
+        <TextBlock Height="37" HorizontalAlignment="Center" Margin="170,48,894,0" Name="textBlockState" Text="Etat : Inactif" VerticalAlignment="Top" Width="193" FontSize="22" FontStyle="Italic"><TextBlock.TextEffects><TextEffect Foreground="#FFDE1414" PositionCount="4" /></TextBlock.TextEffects></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="170,143,0,0" Name="textBlockCopied" Text="Images copiées: " Width="110" FontSize="15" VerticalAlignment="Top" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="12,12,0,0" Name="textBlock3" Text="Debut" VerticalAlignment="Top" Width="63" FontSize="15" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="67,12,0,0" Name="textBoxDebut" VerticalAlignment="Top" Width="121" FontSize="15" Text="" AcceptsReturn="False" />
+        <CheckBox Content="Hebus.com" Height="16" Margin="392,5,764,0" Name="checkboxHebus" VerticalAlignment="Top" IsChecked="True" Loaded="Grid_Loaded" />
+        <CheckBox Content="Wallpapers.org" Height="20" HorizontalAlignment="Left" Margin="392,27,0,0" Name="checkboxWallpaper" VerticalAlignment="Top" Width="120" Visibility="Hidden" />
+        <TextBlock HorizontalAlignment="Right" Margin="0,143,894,0" Name="textBlockVarNB" Text="" Width="77" FontSize="18" TextTrimming="WordEllipsis" TextWrapping="WrapWithOverflow" VerticalAlignment="Top" />
+        <Label Content="" Margin="170,113,556,0" Name="textBlockInfos" FontWeight="Bold" FontStyle="Italic" FontSize="10" VerticalAlignment="Top" />
+        <TextBlock FontSize="15" Height="27" HorizontalAlignment="Left" Margin="170,82,0,0" Name="textBlockDuree" Text="" VerticalAlignment="Top" Width="233" />
+        <Button Content="Voir la liste" Height="30" HorizontalAlignment="Left" Margin="12,139,0,0" Name="button1" VerticalAlignment="Top" Width="149" IsEnabled="False" Click="button1_Click" />
+        <WebBrowser Height="484" HorizontalAlignment="Stretch" Name="webBrowser1" VerticalAlignment="Stretch" Width="1256" Grid.Row="2" />
+    </Grid>
+</Window>
+     
