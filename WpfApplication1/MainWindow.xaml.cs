@@ -13,8 +13,11 @@ namespace WpfApplication1
     {
         public int value=0;
         public int varNb=0;
-        public int firstImage=0;
-        public int lastImage=9;
+        public int initCount=0;
+
+        public int offset=0;
+        public int limit=9;
+
         public string path = @"c:\Images\";
 
         public MainWindow()
@@ -250,12 +253,37 @@ namespace WpfApplication1
         {
             StreamReader str = new StreamReader(path + "List.txt");
             string line = "<html><body bgColor='black'>";
-            for (int count=firstImage; count<=lastImage; count++){
-                if (!str.EndOfStream)line = line + str.ReadLine();
+
+            /*
+             * Probleme il commence toujours à la ligne 1;
+            */
+            
+            while (initCount<=offset){
+                initCount++;
+                str.ReadLine();
             }
+            for (int count=0; count<limit; count++){
+            line = line + str.ReadLine();
+            }
+
             line = line + "<body></html>";
             webBrowser1.NavigateToString(line);
             str.Close();
         }
+
+        private void btPrec_Click(object sender, RoutedEventArgs e)
+        {
+            offset = (offset==0) ? 0 :offset-limit;
+            readResult();
+            Console.WriteLine(">>>>>>>>>>>" + offset);
+        }
+
+        private void btSuiv_Click(object sender, RoutedEventArgs e)
+        {
+            offset += limit;
+            readResult();
+            Console.WriteLine(">>>>>>>>>>>"+offset);
+        }
+
     }
 }

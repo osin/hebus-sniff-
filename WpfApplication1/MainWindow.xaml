@@ -25,6 +25,8 @@
         <TextBlock FontSize="15" Height="27" HorizontalAlignment="Left" Margin="170,82,0,0" Name="textBlockDuree" Text="" VerticalAlignment="Top" Width="233" />
         <Button Content="Voir la liste" Height="30" HorizontalAlignment="Left" Margin="12,139,0,0" Name="button1" VerticalAlignment="Top" Width="149" IsEnabled="False" Click="button1_Click" />
         <WebBrowser Height="484" HorizontalAlignment="Stretch" Name="webBrowser1" VerticalAlignment="Stretch" Width="1256" Grid.Row="2" />
+        <Button Content="Précédent" Height="23" HorizontalAlignment="Left" Margin="508,139,0,0" Name="btPrec" VerticalAlignment="Top" Width="75" Click="btPrec_Click" />
+        <Button Content="Suivant" Height="23" HorizontalAlignment="Left" Margin="688,139,0,0" Name="btSuiv" VerticalAlignment="Top" Width="75" Click="btSuiv_Click" />
     </Grid>
 </Window>
      
