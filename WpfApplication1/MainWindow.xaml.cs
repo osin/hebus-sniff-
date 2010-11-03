@@ -13,10 +13,85 @@ namespace WpfApplication1
     {
         public int value=0;
         public int varNb=0;
+        public int firstImage=0;
+        public int lastImage=9;
         public string path = @"c:\Images\";
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+        
+        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (File.Exists(path + "list.txt")) button1.IsEnabled = true;
+                else webBrowser1.NavigateToString("<center>Vous n'avez pas encore recupere de liens</center>");
+                StreamReader read = new StreamReader(path + "log");
+                textBoxDebut.Text = read.ReadLine();
+                textBoxLimit.Text = read.ReadLine();
+                if (int.Parse(textBoxLimit.Text) > (getHebusMaxImages()))
+                    textBoxLimit.Text = Convert.ToString(getHebusMaxImages());
+                webBrowser1.NavigateToString("<html><body background color='black'></body></html>");
+                textBlockInfos.Content = "Il y'a " + Convert.ToString(getHebusMaxImages() + " images sur Hebus");
+            }
+            catch (Exception i)
+            {
+                textBoxDebut.Text = "0";
+                textBoxLimit.Text = "100";
+                textBlockInfos.Content = "Il y'a " + Convert.ToString(getHebusMaxImages() + " images sur Hebus");
+            }
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            readResult();
+        }
+
+        private void buttonGo_Click(object sender, RoutedEventArgs e)
+        {
+            if (control())
+            {
+                DateTime time = DateTime.Now;
+                try
+                {
+                    if (!File.Exists(path + "List.txt"))
+                    {
+                        System.IO.Directory.CreateDirectory(path);
+                        StreamWriter stream = new StreamWriter(path + "log", true);
+                        stream.WriteLine(textBoxDebut.Text + "\n" + textBoxLimit.Text);
+                        stream.Close();
+                    }
+                }
+                catch (Exception i)
+                {
+                    textBlockState.Text = "Erreur accès au fichier";
+                    log(i);
+                }
+                for (value = int.Parse(textBoxDebut.Text); value <= int.Parse(textBoxLimit.Text); value++)
+                {
+                    String URL = getImageURL(value);
+                    writeImageURL(URL);
+                    getImage(URL);
+                }
+                textBlockVarNB.Text = (Convert.ToString(varNb));
+                DateTime elapse = DateTime.Now;
+                textBlockDuree.Text = elapse.Subtract(time).Hours.ToString() + "H -" + elapse.Subtract(time).Minutes.ToString() + "M -" + elapse.Subtract(time).Seconds.ToString() + 'S';
+                try
+                {
+                    StreamWriter logger = new StreamWriter(path + "log", false);
+                    logger.WriteLine(textBoxLimit.Text + "\n" + (int.Parse(textBoxLimit.Text) + 100));
+                    logger.Close();
+                }
+                catch (Exception i)
+                {
+                    log(i);
+                }
+                textBlockInfos.Content = "La liste d'image est copiée dans: " + path;
+                textBlockState.Text = "Etat: Terminé";
+                readResult();
+            }
         }
 
         private String getImageURL(int value)
@@ -117,59 +192,6 @@ namespace WpfApplication1
             return false;
         }
 
-        private void buttonGo_Click(object sender, RoutedEventArgs e)
-        {
-            if (control())
-            {
-                DateTime time = DateTime.Now;
-                try
-                {
-                    if (!File.Exists(path + "List.txt"))
-                    {
-                        System.IO.Directory.CreateDirectory(path);
-                        StreamWriter stream = new StreamWriter(path + "log", true);
-                        stream.WriteLine(textBoxDebut.Text + "\n" + textBoxLimit.Text);
-                        stream.Close();
-                    }
-                }
-                catch (Exception i)
-                {
-                    textBlockState.Text = "Erreur accès au fichier";
-                    log(i);
-                }
-                for (value = int.Parse(textBoxDebut.Text); value <= int.Parse(textBoxLimit.Text); value++)
-                {
-                    String URL = getImageURL(value);
-                    writeImageURL(URL);
-                    getImage(URL);
-                }
-                textBlockVarNB.Text = (Convert.ToString(varNb));
-                DateTime elapse = DateTime.Now;
-                textBlockDuree.Text = elapse.Subtract(time).Hours.ToString() + "H -" + elapse.Subtract(time).Minutes.ToString() + "M -"+ elapse.Subtract(time).Seconds.ToString() + 'S';
-                try
-                {
-                    StreamWriter logger = new StreamWriter(path + "log", false);
-                    logger.WriteLine(textBoxLimit.Text + "\n" + (int.Parse(textBoxLimit.Text) + 100));
-                    logger.Close();
-                }
-                catch (Exception i)
-                {
-                    log(i);
-                }
-                textBlockInfos.Content = "La liste d'image est copiée dans: "+path;
-                textBlockState.Text = "Etat: Terminé";
-                readResult();
-            }
-        }
-        private void readResult()
-        {
-            StreamReader str = new StreamReader(path + "List.txt");
-            string line ="<html><body bgColor='black'>";
-            line=line+str.ReadToEnd();
-            line=line+"<body></html>";
-            webBrowser1.NavigateToString(line);
-            str.Close();
-        }
         private void writeImageURL(string URL)
         {
             try
@@ -197,7 +219,7 @@ namespace WpfApplication1
             }
         }
 
-        private int hebusMaxImages()
+        private int getHebusMaxImages()
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://www.hebus.com/index-nouveautes.html");
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
@@ -216,27 +238,7 @@ namespace WpfApplication1
                 return 0;
             }
         }
-        private void Grid_Loaded(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                if (File.Exists(path + "list.txt")) button1.IsEnabled = true;
-                else webBrowser1.NavigateToString("<center>Vous n'avez pas encore recupere de liens</center>");
-                StreamReader read=new StreamReader(path+"log");
-                textBoxDebut.Text = read.ReadLine();
-                textBoxLimit.Text = read.ReadLine();
-                if (int.Parse(textBoxLimit.Text) > (hebusMaxImages()))
-                textBoxLimit.Text = Convert.ToString(hebusMaxImages());
-                webBrowser1.NavigateToString("<html><body background color='black'></body></html>");
-                textBlockInfos.Content = "Il y'a " + Convert.ToString(hebusMaxImages() + " images sur Hebus");
-            }
-            catch (Exception i)
-            {
-                textBoxDebut.Text = "0";
-                textBoxLimit.Text = "100";
-                textBlockInfos.Content = "Il y'a " + Convert.ToString(hebusMaxImages() + " images sur Hebus");
-            }
-        }
+
         private void log(Exception e)
         {
             StreamWriter stream = new StreamWriter(path + "errors", true);
@@ -244,9 +246,16 @@ namespace WpfApplication1
             stream.Close();
         }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
+        private void readResult()
         {
-            readResult();
+            StreamReader str = new StreamReader(path + "List.txt");
+            string line = "<html><body bgColor='black'>";
+            for (int count=firstImage; count<=lastImage; count++){
+                if (!str.EndOfStream)line = line + str.ReadLine();
+            }
+            line = line + "<body></html>";
+            webBrowser1.NavigateToString(line);
+            str.Close();
         }
     }
 }
