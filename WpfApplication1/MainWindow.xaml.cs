@@ -4,19 +4,15 @@ using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-
-
-
 namespace WpfApplication1
 {
     public partial class MainWindow : Window
     {
-        public int value=0;
-        public int varNb=0;
-        public int initCount=0;
+        public int value = 0;
+        public int varNb = 0;
 
-        public int offset=0;
-        public int limit=9;
+        public int offset = 0;
+        public int limit = 9;
 
         public string path = @"c:\Images\";
 
@@ -24,22 +20,22 @@ namespace WpfApplication1
         {
             InitializeComponent();
         }
-        
+
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (File.Exists(path + "list.txt")) button1.IsEnabled = true;
-                else webBrowser1.NavigateToString("<center>Vous n'avez pas encore recupere de liens</center>");
+                Pagination();
                 StreamReader read = new StreamReader(path + "log");
                 textBoxDebut.Text = read.ReadLine();
                 textBoxLimit.Text = read.ReadLine();
+                read.Close();
                 if (int.Parse(textBoxLimit.Text) > (getHebusMaxImages()))
                     textBoxLimit.Text = Convert.ToString(getHebusMaxImages());
                 webBrowser1.NavigateToString("<html><body background color='black'></body></html>");
                 textBlockInfos.Content = "Il y'a " + Convert.ToString(getHebusMaxImages() + " images sur Hebus");
             }
-            catch (Exception i)
+            catch (Exception)
             {
                 textBoxDebut.Text = "0";
                 textBoxLimit.Text = "100";
@@ -94,9 +90,40 @@ namespace WpfApplication1
                 textBlockInfos.Content = "La liste d'image est copiée dans: " + path;
                 textBlockState.Text = "Etat: Terminé";
                 readResult();
+                Pagination();
             }
         }
 
+        private void btPrec_Click(object sender, RoutedEventArgs e)
+        {
+            offset = (offset == 0) ? 0 : offset - limit;
+            readResult();
+            Pagination();
+        }
+
+        private void btSuiv_Click(object sender, RoutedEventArgs e)
+        {
+            offset += limit;
+            readResult();
+            Pagination();
+        }
+
+        private void btVoir_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (int.Parse(tbPage.Text) <= (countMyLink() / limit) && int.Parse(tbPage.Text) >= 0)
+                {
+                    offset = limit * int.Parse(tbPage.Text);
+                    readResult();
+                }
+                else tbPage.Text = "?";
+            }
+            catch (Exception i)
+            {
+                tbPage.Text = "?";
+            }
+        }
         private String getImageURL(int value)
         {
             try
@@ -104,7 +131,7 @@ namespace WpfApplication1
                 String source = getSource(value, "http://www.hebus.com/imagefull-");
                 int index = source.IndexOf("<img class=\"tn\" src=\"", 2000);
                 string line = source.Substring(index, 255);
-                line = line.Substring(line.IndexOf("http"), line.IndexOf("alt")-22);
+                line = line.Substring(line.IndexOf("http"), line.IndexOf("alt") - 22);
                 if (line.Contains("jpg") || line.Contains("png"))
                 {
                     varNb++;
@@ -115,40 +142,40 @@ namespace WpfApplication1
             catch (Exception e)
             {
                 textBlockState.Text = "Etat: Erreur";
-                Console.WriteLine("Erreur : "+e);
+                Console.WriteLine("Erreur : " + e);
                 return "invalide element, nothing has been taken : ";
             }
         }
 
         private void getImage(String URL)
         {
-        /*
-            int BufferSize = 512 * 4096;
-            int BufferReadSize = 4096;
+            /*
+                int BufferSize = 512 * 4096;
+                int BufferReadSize = 4096;
 
-            HttpWebRequest imageRequest = (HttpWebRequest)WebRequest.Create(URL);
-            WebResponse serverResponse = imageRequest.GetResponse();
+                HttpWebRequest imageRequest = (HttpWebRequest)WebRequest.Create(URL);
+                WebResponse serverResponse = imageRequest.GetResponse();
             
-            Stream responseStream = serverResponse.GetResponseStream();
-            byte[] buffer = new byte[BufferSize];
+                Stream responseStream = serverResponse.GetResponseStream();
+                byte[] buffer = new byte[BufferSize];
               
-            //Nombre d'octets lus dans la portion courante du Flux.
-            int read;
-            //Nombre total des octets lus
-            int parsedBytes = 0;
-            while (true)
-            {
-                //Lecture d'un nouveau bloc de taille maximale 1024 octet (BufferReadSize)
-                read = responseStream.Read(buffer, parsedBytes, BufferReadSize);
-                if (read == 0) break; // TODO: might not be correct. Was : Exit While
-                parsedBytes += read;
-            }
-            //Libération de ressources mémoire.
-            responseStream.Close();
-            //Transformation des données du buffer vers un Memory Stream
-            MemoryStream pictureStream = new MemoryStream(buffer);
-            //Transformation en Image
-         */
+                //Nombre d'octets lus dans la portion courante du Flux.
+                int read;
+                //Nombre total des octets lus
+                int parsedBytes = 0;
+                while (true)
+                {
+                    //Lecture d'un nouveau bloc de taille maximale 1024 octet (BufferReadSize)
+                    read = responseStream.Read(buffer, parsedBytes, BufferReadSize);
+                    if (read == 0) break; // TODO: might not be correct. Was : Exit While
+                    parsedBytes += read;
+                }
+                //Libération de ressources mémoire.
+                responseStream.Close();
+                //Transformation des données du buffer vers un Memory Stream
+                MemoryStream pictureStream = new MemoryStream(buffer);
+                //Transformation en Image
+             */
         }
 
         private String getSource(int limit, String source)
@@ -176,12 +203,12 @@ namespace WpfApplication1
                 try
                 {
                     if ((int.Parse(textBoxDebut.Text) >= 0) && (int.Parse(textBoxLimit.Text) > int.Parse(textBoxDebut.Text)))
-                            varNb = 0;
-                        else
-                        {
-                            textBlockState.Text = "Valeurs incorrecte";
-                            return false;
-                        }
+                        varNb = 0;
+                    else
+                    {
+                        textBlockState.Text = "Valeurs incorrecte";
+                        return false;
+                    }
                     return true;
                 }
                 catch (Exception)
@@ -199,27 +226,21 @@ namespace WpfApplication1
         {
             try
             {
-                StreamWriter stream = new StreamWriter(path + "List.txt", true);
-                if (URL!=" ")
-                stream.WriteLine("<img width=\"400\"src=\""+URL+"\" title=\""+value+"\"/>");
+                StreamWriter stream = new StreamWriter(path + "List.txt", (bool)(cbRewriteFile.IsChecked));
+                if (URL != " ")
+                stream.WriteLine("<img width=\"300\"src=\"" + URL + "title=\"" + value + "\"/>");
                 stream.Close();
+                if (cbRewriteFile.IsChecked == false) cbRewriteFile.IsChecked = true;
             }
             catch (Exception e)
             {
                 log(e);
             }
         }
-        
+
         private void Window_gotFocus(object sender, RoutedEventArgs e)
         {
-            try
-            {
                 textBlockState.Text = "Traitement...";
-            }
-            catch (Exception i)
-            {
-                log(i);
-            }
         }
 
         private int getHebusMaxImages()
@@ -235,7 +256,8 @@ namespace WpfApplication1
                 string line = Line.Substring(index, 255);
                 line = line.Substring(line.IndexOf("image-") + 6, 6);
                 return Int32.Parse(line);
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 log(e);
                 return 0;
@@ -245,45 +267,106 @@ namespace WpfApplication1
         private void log(Exception e)
         {
             StreamWriter stream = new StreamWriter(path + "errors", true);
-            stream.WriteLine(">"+DateTime.Now + " : " + e.ToString());
+            stream.WriteLine(">" + DateTime.Now + " : " + e.ToString());
             stream.Close();
         }
 
         private void readResult()
         {
+            try
+            {
+                StreamReader str = new StreamReader(path + "List.txt");
+                string line = "<html><body bgColor='black'>";
+                int initCount = 0;
+                while (initCount <= offset)
+                {
+                    if (initCount != 0) str.ReadLine();
+                    initCount++;
+                }
+                for (int count = 0; count < limit; count++)
+                {
+                    line = line + str.ReadLine();
+                }
+                line = line + "<body></html>";
+                webBrowser1.NavigateToString(line);
+                str.Close();
+            }
+            catch (Exception e)
+            {
+                log(e);
+            }
+        }
+
+        private int countMyLink()
+        {
             StreamReader str = new StreamReader(path + "List.txt");
-            string line = "<html><body bgColor='black'>";
-
-            /*
-             * Probleme il commence toujours à la ligne 1;
-            */
-            
-            while (initCount<=offset){
-                initCount++;
+            int count = 0;
+            while (!str.EndOfStream)
+            {
                 str.ReadLine();
+                count++;
             }
-            for (int count=0; count<limit; count++){
-            line = line + str.ReadLine();
-            }
-
-            line = line + "<body></html>";
-            webBrowser1.NavigateToString(line);
             str.Close();
+            return count;
         }
 
-        private void btPrec_Click(object sender, RoutedEventArgs e)
+        private void Pagination()
         {
-            offset = (offset==0) ? 0 :offset-limit;
-            readResult();
-            Console.WriteLine(">>>>>>>>>>>" + offset);
+            if (File.Exists(path + "list.txt"))
+            {
+                if (offset> 0) btPrec.IsEnabled = true;
+                button1.IsEnabled = true;
+                StreamReader readMore = new StreamReader(path + "list.txt");
+                for (int count = 0; count < limit + 1; count++)
+                    if (readMore.ReadLine() != null && count >= limit)
+                    {
+                        btSuiv.IsEnabled = true;
+                        btVoir.IsEnabled = true;
+                        tbPage.IsEnabled = true;
+                        if (offset == 0) btPrec.IsEnabled = false;
+                        if ((offset / limit) + 1==((countMyLink() / limit) + 1)) btSuiv.IsEnabled = false;
+                        /*
+                        if (offset!=limit)
+                        if ((offset / limit)%((countMyLink() / limit)+1)==1) btSuiv.IsEnabled = false;
+                        Console.WriteLine(">>>>>>>offset" + offset);
+                        Console.WriteLine(">>>>>>>tbPage" + offset/limit);
+                        Console.WriteLine(">>>>>>>CML" + (countMyLink() / limit)+1);
+                         */
+                    }
+                int page = (offset / limit) + 1;
+                tbPage.Text = Convert.ToString(page);
+                lPage.Content = "/ " + Convert.ToString((countMyLink()/limit)+1);
+                readMore.Close();
+            }
+            else webBrowser1.NavigateToString("<center>Vous n'avez pas encore recupere de liens</center>");
         }
 
-        private void btSuiv_Click(object sender, RoutedEventArgs e)
+        private void button2_Click(object sender, RoutedEventArgs e)
         {
-            offset += limit;
-            readResult();
-            Console.WriteLine(">>>>>>>>>>>"+offset);
+            try
+            {
+                if (int.Parse(tbImgPage.Text) > 0)
+                {
+                    limit = int.Parse(tbImgPage.Text);
+                    Pagination();
+                    readResult();
+                }
+                else tbImgPage.Text = "?";
+            }
+            catch (Exception i)
+            {
+                tbImgPage.Text = "?";
+            }
         }
 
+        private void cbRewriteFile_Checked(object sender, RoutedEventArgs e)
+        {
+            cbRewriteFile.Content = "Ajouter";
+        }
+
+        private void cbRewriteFile_Unchecked(object sender, RoutedEventArgs e)
+        {
+            cbRewriteFile.Content = "Ré-ecrire";
+        }
     }
 }
