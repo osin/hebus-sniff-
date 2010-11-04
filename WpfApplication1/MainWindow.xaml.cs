@@ -131,7 +131,7 @@ namespace WpfApplication1
                 String source = getSource(value, "http://www.hebus.com/imagefull-");
                 int index = source.IndexOf("<img class=\"tn\" src=\"", 2000);
                 string line = source.Substring(index, 255);
-                line = line.Substring(line.IndexOf("http"), line.IndexOf("alt") - 22);
+                line = line.Substring(line.IndexOf("http"), line.IndexOf("alt") - 23);
                 if (line.Contains("jpg") || line.Contains("png"))
                 {
                     varNb++;
@@ -228,7 +228,7 @@ namespace WpfApplication1
             {
                 StreamWriter stream = new StreamWriter(path + "List.txt", (bool)(cbRewriteFile.IsChecked));
                 if (URL != " ")
-                stream.WriteLine("<img width=\"300\"src=\"" + URL + "title=\"" + value + "\"/>");
+                stream.WriteLine(URL);
                 stream.Close();
                 if (cbRewriteFile.IsChecked == false) cbRewriteFile.IsChecked = true;
             }
@@ -276,7 +276,7 @@ namespace WpfApplication1
             try
             {
                 StreamReader str = new StreamReader(path + "List.txt");
-                string line = "<html><body bgColor='black'>";
+                string line = "<html><body bgColor='black'><center>";
                 int initCount = 0;
                 while (initCount <= offset)
                 {
@@ -285,9 +285,10 @@ namespace WpfApplication1
                 }
                 for (int count = 0; count < limit; count++)
                 {
-                    line = line + str.ReadLine();
+                    String itemURL = str.ReadLine();
+                    line += "<a href=\"" + itemURL + "\"><img style=\"border:0px\" width=\"" + webBrowser1.Width / (Math.Sqrt(limit)) + "\"src=\"" + itemURL + "\"/></a>&nbsp;";
                 }
-                line = line + "<body></html>";
+                line = line + "</center><body></html>";
                 webBrowser1.NavigateToString(line);
                 str.Close();
             }
@@ -325,13 +326,6 @@ namespace WpfApplication1
                         tbPage.IsEnabled = true;
                         if (offset == 0) btPrec.IsEnabled = false;
                         if ((offset / limit) + 1==((countMyLink() / limit) + 1)) btSuiv.IsEnabled = false;
-                        /*
-                        if (offset!=limit)
-                        if ((offset / limit)%((countMyLink() / limit)+1)==1) btSuiv.IsEnabled = false;
-                        Console.WriteLine(">>>>>>>offset" + offset);
-                        Console.WriteLine(">>>>>>>tbPage" + offset/limit);
-                        Console.WriteLine(">>>>>>>CML" + (countMyLink() / limit)+1);
-                         */
                     }
                 int page = (offset / limit) + 1;
                 tbPage.Text = Convert.ToString(page);
