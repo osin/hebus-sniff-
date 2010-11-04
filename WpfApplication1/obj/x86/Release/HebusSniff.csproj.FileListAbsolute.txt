@@ -15,8 +15,6 @@ D:\Documents\Visual Studio 2010\Projects\WpfApplication1\WpfApplication1\obj\x86
 D:\Documents\Visual Studio 2010\Projects\WpfApplication1\WpfApplication1\obj\x86\Release\WpfApplication1.application
 D:\Documents\Visual Studio 2010\Projects\WpfApplication1\WpfApplication1\obj\x86\Release\WpfApplication1.exe
 D:\Documents\Visual Studio 2010\Projects\WpfApplication1\WpfApplication1\obj\x86\Release\WpfApplication1.pdb
-D:\Workspace\Visual Studio 2010\Projects\WpfApplication1\WpfApplication1\obj\x86\Release\WpfApplication1.exe
-D:\Workspace\Visual Studio 2010\Projects\WpfApplication1\WpfApplication1\obj\x86\Release\WpfApplication1.pdb
 D:\Workspace\Visual Studio 2010\Projects\WpfApplication1\WpfApplication1\bin\Release\WpfApplication1.exe.manifest
 D:\Workspace\Visual Studio 2010\Projects\WpfApplication1\WpfApplication1\bin\Release\WpfApplication1.application
 D:\Workspace\Visual Studio 2010\Projects\WpfApplication1\WpfApplication1\bin\Release\WpfApplication1.exe
@@ -32,3 +30,5 @@ D:\Workspace\Visual Studio 2010\Projects\WpfApplication1\WpfApplication1\obj\x86
 D:\Workspace\Visual Studio 2010\Projects\WpfApplication1\WpfApplication1\obj\x86\Release\GenerateResource.write.1.tlog
 D:\Workspace\Visual Studio 2010\Projects\WpfApplication1\WpfApplication1\obj\x86\Release\WpfApplication1.exe.manifest
 D:\Workspace\Visual Studio 2010\Projects\WpfApplication1\WpfApplication1\obj\x86\Release\WpfApplication1.application
+D:\Workspace\Visual Studio 2010\Projects\WpfApplication1\WpfApplication1\obj\x86\Release\WpfApplication1.exe
+D:\Workspace\Visual Studio 2010\Projects\WpfApplication1\WpfApplication1\obj\x86\Release\WpfApplication1.pdb

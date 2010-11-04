@@ -9,15 +9,14 @@
         <TextBlock HorizontalAlignment="Left" Margin="194,12,0,141" Name="textBlockLimit" Text="Limit" Width="63" FontSize="15" />
         <TextBox HorizontalAlignment="Left" Margin="241,12,0,141" Name="textBoxLimit" Width="75" FontSize="15" Text="" />
         <Button Content="GO !" Height="67" HorizontalAlignment="Left" Margin="12,48,0,0" Name="buttonGo" VerticalAlignment="Top" Width="149" FontSize="15" GotFocus="Window_gotFocus" Click="buttonGo_Click" IsTabStop="False" />
-        <TextBlock Height="37" HorizontalAlignment="Center" Margin="170,39,636,0" Name="textBlockState" Text="Etat : Inactif" VerticalAlignment="Top" Width="193" FontSize="22" FontStyle="Italic"><TextBlock.TextEffects><TextEffect Foreground="#FFDE1414" PositionCount="4" /></TextBlock.TextEffects></TextBlock>
+        <TextBlock Height="37" HorizontalAlignment="Center" Margin="170,40,636,0" Name="textBlockState" Text="Etat : Inactif" VerticalAlignment="Top" Width="193" FontSize="22" FontStyle="Italic"><TextBlock.TextEffects><TextEffect Foreground="#FFDE1414" PositionCount="4" /></TextBlock.TextEffects></TextBlock>
         <TextBlock HorizontalAlignment="Left" Margin="170,143,0,0" Name="textBlockCopied" Text="Images copiées: " Width="110" FontSize="15" VerticalAlignment="Top" />
         <TextBlock Height="23" HorizontalAlignment="Left" Margin="12,12,0,0" Name="textBlock3" Text="Debut" VerticalAlignment="Top" Width="63" FontSize="15" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="67,12,0,0" Name="textBoxDebut" VerticalAlignment="Top" Width="75" FontSize="15" Text="" />
-        <CheckBox Content="Hebus.com" Height="16" Margin="391,8,465,0" Name="checkboxHebus" VerticalAlignment="Top" IsChecked="True" Loaded="Grid_Loaded" />
-        <CheckBox Content="Wallpapers.org" Height="20" HorizontalAlignment="Left" Margin="391,30,0,0" Name="checkboxWallpaper" VerticalAlignment="Top" Width="120" Visibility="Hidden" />
+        <CheckBox Content="Hebus.com" Height="16" Margin="377,12,538,0" Name="checkboxHebus" VerticalAlignment="Top" IsChecked="True" Loaded="Grid_Loaded" />
         <TextBlock HorizontalAlignment="Right" Margin="0,143,894,0" Name="textBlockVarNB" Text="" Width="77" FontSize="18" TextTrimming="WordEllipsis" TextWrapping="WrapWithOverflow" VerticalAlignment="Top" />
         <Label Content="" Margin="170,113,673,0" Name="textBlockInfos" FontWeight="Bold" FontStyle="Italic" FontSize="10" VerticalAlignment="Top" />
-        <TextBlock FontSize="15" Height="27" HorizontalAlignment="Left" Margin="170,82,0,0" Name="textBlockDuree" Text="" VerticalAlignment="Top" Width="233" />
+        <TextBlock FontSize="15" Height="27" HorizontalAlignment="Left" Margin="170,82,0,0" Name="textBlockDuree" Text="" VerticalAlignment="Top" Width="157" />
         <Button Content="Voir la liste" Height="30" HorizontalAlignment="Left" Margin="12,139,0,0" Name="button1" VerticalAlignment="Top" Width="149" IsEnabled="False" Click="button1_Click" />
         <WebBrowser HorizontalAlignment="Stretch" Name="webBrowser1" VerticalAlignment="Top" FlowDirection="LeftToRight" MinWidth="800" MinHeight="400" Width="1000" Height="400" Margin="0,176,23,0" />
         <Button Content="Précédent" Height="23" HorizontalAlignment="Left" Margin="414,53,0,0" Name="btPrec" VerticalAlignment="Top" Width="75" Click="btPrec_Click" IsEnabled="False" />
@@ -27,8 +26,10 @@
         <Label Height="23" HorizontalAlignment="Left" Margin="542,146,0,0" Name="lPage" VerticalAlignment="Top" Width="42" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="520,113,0,0" Name="tbImgPage" VerticalAlignment="Top" Width="32" Text="9" />
         <Label Content="Nombre d'images par page :" Height="28" HorizontalAlignment="Left" Margin="356,113,0,0" Name="lNbImagesPage" VerticalAlignment="Top" Width="173" />
-        <Button Content="OK" Height="23" HorizontalAlignment="Left" Margin="558,113,0,0" Name="btImgPage" VerticalAlignment="Top" Width="33" Click="button2_Click" />
+        <Button Content="OK" Height="23" HorizontalAlignment="Left" Margin="558,113,0,0" Name="btImgPage" VerticalAlignment="Top" Width="33" Click="button2_Click" IsEnabled="False" />
         <CheckBox Content="Ajouter" Height="20" HorizontalAlignment="Left" Margin="12,118,0,0" Name="cbRewriteFile" VerticalAlignment="Top" Visibility="Visible" Width="120" IsChecked="True" Checked="cbRewriteFile_Checked" Unchecked="cbRewriteFile_Unchecked" />
+        <ProgressBar Height="10" HorizontalAlignment="Left" Margin="170,67,0,0" Name="progressBar1" VerticalAlignment="Top" Width="200" Visibility="Hidden" ValueChanged="progressBar1_ValueChanged" />
+        <CheckBox Content="Steffi.Rakotozafy" Height="16" IsChecked="True" Margin="377,31,514,0" Name="checkBoxSteffi" VerticalAlignment="Top" />
     </Grid>
 </Window>
      
