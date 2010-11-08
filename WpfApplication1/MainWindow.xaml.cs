@@ -10,7 +10,6 @@ namespace WpfApplication1
     {
         public int value = 0;
         public int varNb = 0;
-
         public int offset = 0;
         public int limit = 9;
 
@@ -30,16 +29,17 @@ namespace WpfApplication1
                 textBoxDebut.Text = read.ReadLine();
                 textBoxLimit.Text = read.ReadLine();
                 read.Close();
-                if (int.Parse(textBoxLimit.Text) > (getHebusMaxImages()))
-                    textBoxLimit.Text = Convert.ToString(getHebusMaxImages());
+                int hebusMaxImages = hebusGetMaxImages();
+                if (int.Parse(textBoxLimit.Text) > (hebusMaxImages))
+                    textBoxLimit.Text = Convert.ToString(hebusMaxImages);
                 webBrowser1.NavigateToString("<html><body background color='black'></body></html>");
-                textBlockInfos.Content = "Il y'a " + Convert.ToString(getHebusMaxImages() + " images sur Hebus");
+                textBlockInfos.Content = "Il y'a " + Convert.ToString(hebusMaxImages + " images sur Hebus");
             }
             catch (Exception)
             {
                 textBoxDebut.Text = "0";
                 textBoxLimit.Text = "100";
-                textBlockInfos.Content = "Il y'a " + Convert.ToString(getHebusMaxImages() + " images sur Hebus");
+                textBlockInfos.Content = "Il y'a " + Convert.ToString(hebusGetMaxImages() + " images sur Hebus");
             }
         }
 
@@ -50,7 +50,7 @@ namespace WpfApplication1
 
         private void buttonGo_Click(object sender, RoutedEventArgs e)
         {
-            if (control())
+            if (hebusControl())
             {
                 DateTime time = DateTime.Now;
                 try
@@ -69,14 +69,10 @@ namespace WpfApplication1
                     log(i);
                 }
                 
-                int stop=1;
-                if (checkBoxSteffi.IsChecked == false)
-                    stop = int.Parse(textBoxLimit.Text);
-                for (value = int.Parse(textBoxDebut.Text); value <= stop; value++)
+                for (value = int.Parse(textBoxDebut.Text); value <= int.Parse(textBoxLimit.Text); value++)
                 {
-                    String URL = getImageURL(value);
+                    String URL = hebusGetImageURL(value);
                     writeImageURL(URL);
-                    getImage(URL);
                 }
                 textBlockVarNB.Text = (Convert.ToString(varNb));
                 DateTime elapse = DateTime.Now;
@@ -93,6 +89,8 @@ namespace WpfApplication1
                 }
                 textBlockInfos.Content = "La liste d'image est copiée dans: " + path;
                 textBlockState.Text = "Etat: Terminé";
+                textBoxDebut.Text = Convert.ToString(int.Parse(textBoxLimit.Text) + 1);
+                textBoxLimit.Text = Convert.ToString(int.Parse(textBoxLimit.Text) + 101);
                 readResult();
                 Pagination();
             }
@@ -157,13 +155,11 @@ namespace WpfApplication1
             cbRewriteFile.Content = "Ré-ecrire";
         }
 
-        private String getImageURL(int value)
+        private String hebusGetImageURL(int value)
         {
             try
             {
-                if (checkboxHebus.IsChecked == true)
-                {
-                    String source = getSource(value, "http://www.hebus.com/imagefull-");
+                    String source = hebusGetSource(value, "http://www.hebus.com/imagefull-");
                     int index = source.IndexOf("<img class=\"tn\" src=\"", 2000);
                     string line = source.Substring(index, 255);
                     line = line.Substring(line.IndexOf("http"), line.IndexOf("alt") - 23);
@@ -172,85 +168,16 @@ namespace WpfApplication1
                         varNb++;
                         return line;
                     }
-                    else return " ";
-                }
-                /*
-                tu cherches à faire recuprerer le contenu de tous les attributs src de img du site?
-                 * non juste ce qui commence pas class="box last"
-                 * ben c'est les regex la aussi
-                 * c déjà fais, on  la premiere image, mais on n'a pas la seconde, ni la troisième...
-                 * ok
-                 * faudrait  le nombre d'occurence
-                 * jsei vois.
-                 * si tu essaie de compter le nombre d'occurence t'as tout résolu
-                 * mais on ne peux pas compter le nombre d'occurence dans une chaine de caractère
-                 * mais plutot dans un tableau
-                 * ensuite ,exploser la chaine dans un tableau te posera des soucis 
-                 * pour faire la recher
-                 * et pour finir, je pense qu'il ya une solution toutesimple pour cela
-                 * il faut juste retenir l'index où on s'arrete et réinvoquer
-                 * getImageUrl avec 
-                 * l'index où on s'arrete comme dépara attend t
-                 * et ça continue tant qu'on atteint pas la fin de la chaine de caractèr
-                 * ok je comprends.
-                */
-                if (checkBoxSteffi.IsChecked == true)
-                {
-                    String source = getSource(0, "http://steffirakotozafy.com/portfolio");
-                    int index = source.IndexOf("class=\"box last\"");
-                    string line = source.Substring(index, 200);
-                    line = line.Substring(line.IndexOf("http"));
-                    line.Remove(line.IndexOf("img"));
-                    Console.WriteLine(">>>>>>>>>>>>>" + line);
-                    if (line.Contains("jpg") || line.Contains("png"))
-                    {
-                        varNb++;
-                        return line;
-                    }
-                    else return " ";
-                }
-                else return "";
-            }
-            catch (Exception e)
+                    else return "";
+                }catch (Exception e)
             {
                 textBlockState.Text = "Etat: Erreur";
                 log(e);
-                return "invalide element, nothing has been taken : ";
+                return "";
             }
         }
 
-        private void getImage(String URL)
-        {
-            /*
-                int BufferSize = 512 * 4096;
-                int BufferReadSize = 4096;
-
-                HttpWebRequest imageRequest = (HttpWebRequest)WebRequest.Create(URL);
-                WebResponse serverResponse = imageRequest.GetResponse();
-            
-                Stream responseStream = serverResponse.GetResponseStream();
-                byte[] buffer = new byte[BufferSize];
-              
-                //Nombre d'octets lus dans la portion courante du Flux.
-                int read;
-                //Nombre total des octets lus
-                int parsedBytes = 0;
-                while (true)
-                {
-                    //Lecture d'un nouveau bloc de taille maximale 1024 octet (BufferReadSize)
-                    read = responseStream.Read(buffer, parsedBytes, BufferReadSize);
-                    if (read == 0) break; // TODO: might not be correct. Was : Exit While
-                    parsedBytes += read;
-                }
-                //Libération de ressources mémoire.
-                responseStream.Close();
-                //Transformation des données du buffer vers un Memory Stream
-                MemoryStream pictureStream = new MemoryStream(buffer);
-                //Transformation en Image
-             */
-        }
-
-        private String getSource(int limit, String source)
+        private String hebusGetSource(int limit, String source)
         {
             try
             {
@@ -271,54 +198,7 @@ namespace WpfApplication1
             }
         }
 
-        private bool control()
-        {
-            if (checkboxHebus.IsChecked == true || checkBoxSteffi.IsChecked == true)
-                try
-                {
-                    if ((int.Parse(textBoxDebut.Text) >= 0) && (int.Parse(textBoxLimit.Text) > int.Parse(textBoxDebut.Text)))
-                        varNb = 0;
-                    else
-                    {
-                        textBlockState.Text = "Valeurs incorrecte";
-                        return false;
-                    }
-                    return true;
-                }
-                catch (Exception)
-                {
-                    {
-                        textBoxDebut.Text = "?";
-                        textBoxLimit.Text = "?";
-                    }
-                }
-            else textBlockState.Text = "Vous n'avez pas choisi de site";
-            return false;
-        }
-
-        private void writeImageURL(string URL)
-        {
-            try
-            {
-                if (cbRewriteFile.IsChecked == false) File.Delete(path + "log");
-                StreamWriter stream = new StreamWriter(path + "List.txt", (bool)(cbRewriteFile.IsChecked));
-                if (URL != " ")
-                stream.WriteLine(URL);
-                stream.Close();
-                if (cbRewriteFile.IsChecked == false) cbRewriteFile.IsChecked = true;
-            }
-            catch (Exception e)
-            {
-                log(e);
-            }
-        }
-
-        private void Window_gotFocus(object sender, RoutedEventArgs e)
-        {
-                textBlockState.Text = "Traitement...";
-        }
-
-        private int getHebusMaxImages()
+        private int hebusGetMaxImages()
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://www.hebus.com/index-nouveautes.html");
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
@@ -337,6 +217,51 @@ namespace WpfApplication1
                 log(e);
                 return 0;
             }
+        }
+
+        private bool hebusControl()
+        {
+            try
+            {
+                if ((int.Parse(textBoxDebut.Text) >= 0) && (int.Parse(textBoxLimit.Text) > int.Parse(textBoxDebut.Text)))
+                    varNb = 0;
+                else
+                {
+                    textBlockState.Text = "Valeurs incorrecte";
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                {
+                    textBoxDebut.Text = "?";
+                    textBoxLimit.Text = "?";
+                }
+                return false;
+            }
+        }
+
+        private void writeImageURL(string URL)
+        {
+            try
+            {
+                if (cbRewriteFile.IsChecked == false) File.Delete(path + "log");
+                StreamWriter stream = new StreamWriter(path + "List.txt", (bool)(cbRewriteFile.IsChecked));
+                if (URL != "")
+                stream.WriteLine(URL);
+                stream.Close();
+                if (cbRewriteFile.IsChecked == false) cbRewriteFile.IsChecked = true;
+            }
+            catch (Exception e)
+            {
+                log(e);
+            }
+        }
+
+        private void Window_gotFocus(object sender, RoutedEventArgs e)
+        {
+                textBlockState.Text = "Traitement...";
         }
 
         private void log(Exception e)
@@ -409,11 +334,6 @@ namespace WpfApplication1
                 readMore.Close();
             }
             else webBrowser1.NavigateToString("<center>Vous n'avez pas encore recupere de liens</center>");
-        }
-
-        private void progressBar1_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            
         }
     }
 }
