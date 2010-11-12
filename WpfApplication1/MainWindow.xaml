@@ -10,13 +10,13 @@
         <Grid.Background>
             <ImageBrush ImageSource="/WpfApplication1;component/Images/Konachan.com%20-%2079862%20k-on!%20manabe_nodoka.jpg" Stretch="UniformToFill" TileMode="None" />
         </Grid.Background>
-        <TextBlock HorizontalAlignment="Left" Margin="159,12,0,141" Name="textBlockLimit" Text="Limit" Width="63" FontSize="15" Grid.Column="1" />
-        <TextBox HorizontalAlignment="Left" Margin="206,12,0,141" Name="textBoxLimit" Width="75" FontSize="15" Text="" Grid.Column="1" />
+        <TextBlock HorizontalAlignment="Left" Margin="317,12,0,141" Name="textBlockLimit" Text="Limit" Width="41" FontSize="15" Grid.Column="1" />
+        <TextBox HorizontalAlignment="Left" Margin="364,12,0,141" Name="textBoxLimit" Width="75" FontSize="15" Text="" Grid.Column="1" />
         <Button Content="GO !" Height="67" HorizontalAlignment="Left" Margin="12,48,0,0" Name="buttonGo" VerticalAlignment="Top" Width="149" FontSize="15" GotFocus="Window_gotFocus" Click="buttonGo_Click" IsTabStop="False" Grid.ColumnSpan="2" />
         <TextBlock Height="37" HorizontalAlignment="Center" Margin="135,40,416,0" Name="textBlockState" Text="Etat : Inactif" VerticalAlignment="Top" Width="414" FontSize="22" FontStyle="Italic" Grid.Column="1"><TextBlock.TextEffects><TextEffect Foreground="#FFDE1414" PositionCount="4" /></TextBlock.TextEffects></TextBlock>
-        <TextBlock Margin="135,146,684,5" Name="textBlockCopied" Text="Images copiées: " FontSize="15" Grid.Column="1" />
-        <TextBlock Height="23" HorizontalAlignment="Left" Margin="12,12,0,0" Name="textBlock3" Text="Debut" VerticalAlignment="Top" Width="63" FontSize="15" Grid.ColumnSpan="2" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="32,12,0,0" Name="textBoxDebut" VerticalAlignment="Top" Width="75" FontSize="15" Text="" Grid.Column="1" />
+        <TextBlock Margin="135,146,0,5" Name="textBlockCopied" Text="Images copiées: " FontSize="15" Grid.Column="1" HorizontalAlignment="Left" Width="105" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="135,12,0,0" Name="textBlock3" Text="Debut" VerticalAlignment="Top" Width="49" FontSize="15" Grid.Column="1" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="190,12,0,0" Name="textBoxDebut" VerticalAlignment="Top" Width="75" FontSize="15" Text="" Grid.Column="1" />
         <TextBlock HorizontalAlignment="Right" Name="textBlockVarNB" Text="" Width="69" FontSize="18" TextTrimming="WordEllipsis" TextWrapping="WrapWithOverflow" VerticalAlignment="Top" Grid.Column="1" Margin="0,146,650,0" Height="25" />
         <Label Content="" Margin="135,92,627,0" Name="textBlockInfos" FontWeight="Bold" FontStyle="Italic" FontSize="10" VerticalAlignment="Top" Grid.Column="1" />
         <TextBlock FontSize="15" Height="23" HorizontalAlignment="Left" Margin="135,118,0,0" Name="textBlockDuree" Text="" VerticalAlignment="Top" Width="157" Grid.Column="1" />
@@ -31,6 +31,10 @@
         <Label Content="Nombre d'images par page :" Height="28" HorizontalAlignment="Left" Margin="321,113,0,0" Name="lNbImagesPage" VerticalAlignment="Top" Width="173" Grid.Column="1" />
         <Button Content="OK" Height="23" HorizontalAlignment="Left" Margin="523,113,0,0" Name="btImgPage" VerticalAlignment="Top" Width="33" Click="button2_Click" IsEnabled="False" Grid.Column="1" />
         <CheckBox Content="Ajouter" Height="20" HorizontalAlignment="Left" Margin="12,118,0,0" Name="cbRewriteFile" VerticalAlignment="Top" Visibility="Visible" Width="120" IsChecked="True" Checked="cbRewriteFile_Checked" Unchecked="cbRewriteFile_Unchecked" Grid.ColumnSpan="2" />
+        <ComboBox Height="23" HorizontalAlignment="Left" Margin="12,12,0,0" Name="comboBox1" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2" SelectionChanged="comboBox1_SelectionChanged">
+            <ComboBoxItem Content="Hebus" IsSelected="True" />
+            <ComboBoxItem Content="Steffi" IsEnabled="False" />
+        </ComboBox>
     </Grid>
 </Window>
      
