@@ -155,29 +155,7 @@ namespace WpfApplication1
             cbRewriteFile.Content = "Ré-ecrire";
         }
 
-        private String hebusGetImageURL(int value)
-        {
-            try
-            {
-                    String source = hebusGetSource(value, "http://www.hebus.com/imagefull-");
-                    int index = source.IndexOf("<img class=\"tn\" src=\"", 2000);
-                    string line = source.Substring(index, 255);
-                    line = line.Substring(line.IndexOf("http"), line.IndexOf("alt") - 23);
-                    if (line.Contains("jpg") || line.Contains("png"))
-                    {
-                        varNb++;
-                        return line;
-                    }
-                    else return "";
-                }catch (Exception e)
-            {
-                textBlockState.Text = "Etat: Erreur";
-                log(e);
-                return "";
-            }
-        }
-
-        private String hebusGetSource(int limit, String source)
+        private String getSource(int limit, String source)
         {
             try
             {
@@ -195,50 +173,6 @@ namespace WpfApplication1
                 log(e);
                 String Line = "";
                 return Line;
-            }
-        }
-
-        private int hebusGetMaxImages()
-        {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://www.hebus.com/index-nouveautes.html");
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            try
-            {
-                StreamReader reader = new StreamReader(response.GetResponseStream());
-                String Line = reader.ReadToEnd();
-                response.Close();
-                int index = Line.IndexOf("<div class=\"shadow\"  style=\"display:inline;\">");
-                string line = Line.Substring(index, 255);
-                line = line.Substring(line.IndexOf("image-") + 6, 6);
-                return Int32.Parse(line);
-            }
-            catch (Exception e)
-            {
-                log(e);
-                return 0;
-            }
-        }
-
-        private bool hebusControl()
-        {
-            try
-            {
-                if ((int.Parse(textBoxDebut.Text) >= 0) && (int.Parse(textBoxLimit.Text) > int.Parse(textBoxDebut.Text)))
-                    varNb = 0;
-                else
-                {
-                    textBlockState.Text = "Valeurs incorrecte";
-                    return false;
-                }
-                return true;
-            }
-            catch (Exception)
-            {
-                {
-                    textBoxDebut.Text = "?";
-                    textBoxLimit.Text = "?";
-                }
-                return false;
             }
         }
 
@@ -298,6 +232,51 @@ namespace WpfApplication1
             }
         }
 
+        //Hebus
+        private int hebusGetMaxImages()
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://www.hebus.com/index-nouveautes.html");
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            try
+            {
+                StreamReader reader = new StreamReader(response.GetResponseStream());
+                String Line = reader.ReadToEnd();
+                response.Close();
+                int index = Line.IndexOf("<div class=\"shadow\"  style=\"display:inline;\">");
+                string line = Line.Substring(index, 255);
+                line = line.Substring(line.IndexOf("image-") + 6, 6);
+                return Int32.Parse(line);
+            }
+            catch (Exception e)
+            {
+                log(e);
+                return 0;
+            }
+        }
+
+        private String hebusGetImageURL(int value)
+        {
+            try
+            {
+                String source = getSource(value, "http://www.hebus.com/imagefull-");
+                int index = source.IndexOf("<img class=\"tn\" src=\"", 2000);
+                string line = source.Substring(index, 255);
+                line = line.Substring(line.IndexOf("http"), line.IndexOf("alt") - 23);
+                if (line.Contains("jpg") || line.Contains("png"))
+                {
+                    varNb++;
+                    return line;
+                }
+                else return "";
+            }
+            catch (Exception e)
+            {
+                textBlockState.Text = "Etat: Erreur";
+                log(e);
+                return "";
+            }
+        }
+
         private int countMyLink()
         {
             StreamReader str = new StreamReader(path + "List.txt");
@@ -310,6 +289,30 @@ namespace WpfApplication1
             str.Close();
             return count;
         }
+
+        private bool hebusControl()
+        {
+            try
+            {
+                if ((int.Parse(textBoxDebut.Text) >= 0) && (int.Parse(textBoxLimit.Text) > int.Parse(textBoxDebut.Text)))
+                    varNb = 0;
+                else
+                {
+                    textBlockState.Text = "Valeurs incorrecte";
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                {
+                    textBoxDebut.Text = "?";
+                    textBoxLimit.Text = "?";
+                }
+                return false;
+            }
+        }
+        //hebus
 
         private void Pagination()
         {
