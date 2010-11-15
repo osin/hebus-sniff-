@@ -4,10 +4,12 @@ using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using System.ComponentModel;
 namespace WpfApplication1
 {
     public partial class MainWindow : Window
     {
+        private BackgroundWorker worker;
         public int value = 0;
         public static int varNb = 0;
         public int offset = 0;
@@ -33,7 +35,7 @@ namespace WpfApplication1
             {
                 textBoxDebut.Text = "0";
                 textBoxLimit.Text = "100";
-                textBlockInfos.Content = "Erreur sur l'option choisie";
+                textBlockInfos.Content = "Initialization";
             }
         }
 
@@ -49,11 +51,18 @@ namespace WpfApplication1
                     Hebus item = new Hebus();
                     DateTime time = DateTime.Now;
                     item.process();
+
                     for (value = int.Parse(textBoxDebut.Text); value <= int.Parse(textBoxLimit.Text); value++)
                 {
                     String URL = item.getImageURL(value);
-
                     writeImageURL(URL);
+                        //code de ouf
+                    if (this.Dispatcher.Thread.IsAlive)
+                    {
+                        progressBar1.Value = (100 / (int.Parse(textBoxLimit.Text)) * value);
+                        
+                    }
+                        //code de fou
                 }
                 textBlockVarNB.Text = (Convert.ToString(varNb));
                 DateTime elapse = DateTime.Now;
@@ -73,8 +82,8 @@ namespace WpfApplication1
                 textBoxDebut.Text = Convert.ToString(int.Parse(textBoxLimit.Text) + 1);
                 textBoxLimit.Text = Convert.ToString(int.Parse(textBoxLimit.Text) + 101);
                 readResult();
-                    pagination();
-                    break;
+                pagination();
+                break;
             }
         }
 
@@ -183,6 +192,8 @@ namespace WpfApplication1
 
         public static void log(Exception e)
         {
+            if (!Directory.Exists(path))
+            System.IO.Directory.CreateDirectory(path);
             StreamWriter stream = new StreamWriter(path + "errors", true);
             stream.WriteLine(">" + DateTime.Now + " : " + e.ToString());
             stream.Close();
@@ -251,5 +262,6 @@ namespace WpfApplication1
                     break;
             }
         }
+
     }
 }

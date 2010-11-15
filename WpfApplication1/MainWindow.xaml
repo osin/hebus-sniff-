@@ -10,15 +10,15 @@
         <Grid.Background>
             <ImageBrush ImageSource="/WpfApplication1;component/Images/Konachan.com%20-%2079862%20k-on!%20manabe_nodoka.jpg" Stretch="UniformToFill" TileMode="None" />
         </Grid.Background>
-        <TextBlock HorizontalAlignment="Left" Margin="317,12,0,141" Name="textBlockLimit" Text="Limit" Width="41" FontSize="15" Grid.Column="1" />
-        <TextBox HorizontalAlignment="Left" Margin="364,12,0,141" Name="textBoxLimit" Width="75" FontSize="15" Text="" Grid.Column="1" />
-        <Button Content="GO !" Height="67" HorizontalAlignment="Left" Margin="12,48,0,0" Name="buttonGo" VerticalAlignment="Top" Width="149" FontSize="15" GotFocus="Window_gotFocus" Click="buttonGo_Click" IsTabStop="False" Grid.ColumnSpan="2" />
-        <TextBlock Height="37" HorizontalAlignment="Center" Margin="135,40,416,0" Name="textBlockState" Text="Etat : Inactif" VerticalAlignment="Top" Width="414" FontSize="22" FontStyle="Italic" Grid.Column="1"><TextBlock.TextEffects><TextEffect Foreground="#FFDE1414" PositionCount="4" /></TextBlock.TextEffects></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="306,0,0,153" Name="textBlockLimit" Text="Limit" Width="41" FontSize="15" Grid.Column="1" />
+        <TextBox HorizontalAlignment="Left" Margin="362,0,0,153" Name="textBoxLimit" Width="75" FontSize="15" Text="" Grid.Column="1" />
+        <Button Content="GO !" Height="67" HorizontalAlignment="Left" Margin="12,48,0,0" Name="buttonGo" VerticalAlignment="Top" Width="149" FontSize="15" GotFocus="Window_gotFocus" Click="buttonGo_Click" IsTabStop="False" Grid.ColumnSpan="2" IsManipulationEnabled="False" CommandTarget="{Binding UpdateSourceTrigger=Explicit, IsAsync=True}" ClipToBounds="True" />
+        <TextBlock Height="37" HorizontalAlignment="Center" Margin="135,29,416,0" Name="textBlockState" Text="Etat : Inactif" VerticalAlignment="Top" Width="414" FontSize="22" FontStyle="Italic" Grid.Column="1"><TextBlock.TextEffects><TextEffect Foreground="#FFDE1414" PositionCount="4" /></TextBlock.TextEffects></TextBlock>
         <TextBlock Margin="135,146,0,5" Name="textBlockCopied" Text="Images copiées: " FontSize="15" Grid.Column="1" HorizontalAlignment="Left" Width="105" />
-        <TextBlock Height="23" HorizontalAlignment="Left" Margin="135,12,0,0" Name="textBlock3" Text="Debut" VerticalAlignment="Top" Width="49" FontSize="15" Grid.Column="1" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="190,12,0,0" Name="textBoxDebut" VerticalAlignment="Top" Width="75" FontSize="15" Text="" Grid.Column="1" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="135,0,0,0" Name="textBlock3" Text="Debut" VerticalAlignment="Top" Width="49" FontSize="15" Grid.Column="1" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="190,0,0,0" Name="textBoxDebut" VerticalAlignment="Top" Width="75" FontSize="15" Text="" Grid.Column="1" />
         <TextBlock HorizontalAlignment="Right" Name="textBlockVarNB" Text="" Width="69" FontSize="18" TextTrimming="WordEllipsis" TextWrapping="WrapWithOverflow" VerticalAlignment="Top" Grid.Column="1" Margin="0,146,650,0" Height="25" />
-        <Label Content="" Margin="135,92,627,0" Name="textBlockInfos" FontWeight="Bold" FontStyle="Italic" FontSize="10" VerticalAlignment="Top" Grid.Column="1" />
+        <Label Content="" Margin="135,90,627,0" Name="textBlockInfos" FontWeight="Bold" FontStyle="Italic" FontSize="10" VerticalAlignment="Top" Grid.Column="1" Height="25" />
         <TextBlock FontSize="15" Height="23" HorizontalAlignment="Left" Margin="135,118,0,0" Name="textBlockDuree" Text="" VerticalAlignment="Top" Width="157" Grid.Column="1" />
         <Button Content="Voir la liste" Height="30" HorizontalAlignment="Left" Margin="12,139,0,0" Name="button1" VerticalAlignment="Top" Width="149" IsEnabled="False" Click="button1_Click" Grid.ColumnSpan="2" />
         <WebBrowser HorizontalAlignment="Stretch" Name="webBrowser1" VerticalAlignment="Top" FlowDirection="LeftToRight" MinWidth="800" MinHeight="400" Width="1000" Height="400" Margin="0,176,0,0" Grid.ColumnSpan="2" />
@@ -35,6 +35,7 @@
             <ComboBoxItem Content="Hebus" IsSelected="True" />
             <ComboBoxItem Content="Steffi" IsEnabled="False" />
         </ComboBox>
+        <ProgressBar Grid.Column="1" Height="28" HorizontalAlignment="Left" Margin="135,58,0,0" Name="progressBar1" VerticalAlignment="Top" Width="157" />
     </Grid>
 </Window>
      
