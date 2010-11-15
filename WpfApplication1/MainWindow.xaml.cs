@@ -173,6 +173,7 @@ namespace WpfApplication1
             try
             {
                 if (cbRewriteFile.IsChecked == false) File.Delete(path + "log");
+                if (!Directory.Exists(path)) Directory.CreateDirectory(path);
                 StreamWriter stream = new StreamWriter(path + "List.txt", (bool)(cbRewriteFile.IsChecked));
                 if (URL != "")
                 stream.WriteLine(URL);
