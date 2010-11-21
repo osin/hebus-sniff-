@@ -30,23 +30,24 @@ namespace WpfApplication1
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
+            hebusMaximage = Hebus.getMaxImages();
+            item = new Hebus();
+            pagination();
+            currentList = path + comboBox1.Text + ".txt";
+            Console.WriteLine(path + "log");
+            Console.WriteLine(currentList);
+            textBlockInfos.Content = "Il y'a " + Convert.ToString(hebusMaximage) + " images sur Hebus";
             try
             {
-                hebusMaximage=Hebus.getMaxImages();
-                item = new Hebus();
-                pagination();
                 StreamReader read = new StreamReader(path + "log");
                 textBoxDebut.Text = read.ReadLine();
                 read.Close();
-                textBlockInfos.Content = "Il y'a " + Convert.ToString(hebusMaximage) + " images sur Hebus";
-                currentList = path + comboBox1.Text + ".txt";            }
+            }
             catch (Exception)
             {
                 textBoxDebut.Text = "0";
-                textBlockInfos.Content = "Initialization";
             }
         }
-
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             readResult();

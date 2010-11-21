@@ -29,7 +29,7 @@
     <TargetCulture>fr</TargetCulture>
     <ProductName>HebusSniff</ProductName>
     <PublisherName>Essozi.com</PublisherName>
-    <ApplicationRevision>64</ApplicationRevision>
+    <ApplicationRevision>65</ApplicationRevision>
     <ApplicationVersion>1.3.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
