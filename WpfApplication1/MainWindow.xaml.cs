@@ -194,6 +194,7 @@ namespace WpfApplication1
         {
             try
             {
+                if (!Directory.Exists(path)) Directory.CreateDirectory(path);
                 StreamWriter stream = new StreamWriter(path + "List.txt", true);
                 if (URL != "")
                     stream.WriteLine(value+" : "+URL);
