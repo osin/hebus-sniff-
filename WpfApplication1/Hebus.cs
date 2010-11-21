@@ -5,12 +5,10 @@ using System.Text;
 using System.Net;
 using System.IO;
 
-
 namespace WpfApplication1
 {
     class Hebus : MainWindow
     {
-        string URL;
         public void hebus()
         {
             int hebusMaxImages = getMaxImages();
@@ -62,7 +60,7 @@ namespace WpfApplication1
                 return "";
             }
         }
-
+        
         public static int countMyLink()
         {
             StreamReader str = new StreamReader(MainWindow.path + "List.txt");

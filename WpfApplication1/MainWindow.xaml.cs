@@ -3,19 +3,24 @@ using System.IO;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 using System.ComponentModel;
+using System.Windows.Media;
+using System.Threading;
+using System.Windows.Threading;
+
 namespace WpfApplication1
 {
     public partial class MainWindow : Window
     {
-        private BackgroundWorker worker;
         public int value = 0;
         public static int varNb = 0;
         public int offset = 0;
-        public int limit = 9;
+        public int limit = 2;
         public static string path = @"c:\Images\";
-        
+        DateTime time = new DateTime();
+        Hebus item;
+        WebClient ei = new WebClient();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -25,6 +30,7 @@ namespace WpfApplication1
         {
             try
             {
+                item = new Hebus();
                 pagination();
                 StreamReader read = new StreamReader(path + "log");
                 textBoxDebut.Text = read.ReadLine();
@@ -34,7 +40,7 @@ namespace WpfApplication1
             catch (Exception)
             {
                 textBoxDebut.Text = "0";
-                textBoxLimit.Text = "100";
+                textBoxLimit.Text = "10";
                 textBlockInfos.Content = "Initialization";
             }
         }
@@ -46,31 +52,29 @@ namespace WpfApplication1
 
         private void buttonGo_Click(object sender, RoutedEventArgs e)
         {
-            switch (comboBox1.Items.CurrentPosition){
-                default:
-                    Hebus item = new Hebus();
-                    DateTime time = DateTime.Now;
-                    item.process();
-
-                    for (value = int.Parse(textBoxDebut.Text); value <= int.Parse(textBoxLimit.Text); value++)
+                DateTime time = new DateTime();
+                time = DateTime.Now;
+                item.process();
+                if (cbRewriteFile.IsChecked == false)
                 {
-                    String URL = item.getImageURL(value);
-                    writeImageURL(URL);
-                        //code de ouf
-                    if (this.Dispatcher.Thread.IsAlive)
-                    {
-                        progressBar1.Value = (100 / (int.Parse(textBoxLimit.Text)) * value);
-                        
-                    }
-                        //code de fou
+                    MessageBoxResult result = MessageBox.Show("Souhaitez vous supprimer le dossier " + path + " ?", "Attention", MessageBoxButton.YesNo);
+                    if (result == MessageBoxResult.Yes)
+                        Directory.Delete(path, true);
                 }
+                for (value = int.Parse(textBoxDebut.Text); value <= int.Parse(textBoxLimit.Text); value++)
+                {
+                    operate();
+                    progressBar1.Value = (100 / (int.Parse(textBoxLimit.Text)) * value);
+                    //if (value%100==0) MessageBox.Show("Mise a jour", "Informations", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK, MessageBoxOptions.None);
+                }
+
                 textBlockVarNB.Text = (Convert.ToString(varNb));
                 DateTime elapse = DateTime.Now;
                 textBlockDuree.Text = elapse.Subtract(time).Hours.ToString() + "H -" + elapse.Subtract(time).Minutes.ToString() + "M -" + elapse.Subtract(time).Seconds.ToString() + 'S';
                 try
                 {
                     StreamWriter logger = new StreamWriter(path + "log", false);
-                    logger.WriteLine(textBoxLimit.Text + "\n" + (int.Parse(textBoxLimit.Text) + 100));
+                    logger.WriteLine(textBoxLimit.Text + "\n" + (int.Parse(textBoxLimit.Text) + 10));
                     logger.Close();
                 }
                 catch (Exception i)
@@ -80,13 +84,31 @@ namespace WpfApplication1
                 textBlockInfos.Content = "La liste d'image est copiée dans: " + path;
                 textBlockState.Text = "Etat: Terminé";
                 textBoxDebut.Text = Convert.ToString(int.Parse(textBoxLimit.Text) + 1);
-                textBoxLimit.Text = Convert.ToString(int.Parse(textBoxLimit.Text) + 101);
+                textBoxLimit.Text = Convert.ToString(int.Parse(textBoxLimit.Text) + 11);
                 readResult();
                 pagination();
-                break;
-            }
+                ei.Dispose();
         }
 
+        public void operate()
+        {
+            {
+                String URL = item.getImageURL(value);
+                writeImageURL(URL);
+                getImage(URL);
+                Console.WriteLine(progressBar1.Value);
+            }
+        }
+        public bool getImage(String url)
+        {
+            if (url != "")
+            {
+                ei.DownloadFile(url,path+value+(url.Substring(url.LastIndexOf('.'))));
+                return true;
+            }
+            else return false;
+        }
+        
         private void btPrec_Click(object sender, RoutedEventArgs e)
         {
             offset = (offset == 0) ? 0 : offset - limit;
@@ -172,10 +194,9 @@ namespace WpfApplication1
         {
             try
             {
-                if (cbRewriteFile.IsChecked == false) File.Delete(path + "log");
-                StreamWriter stream = new StreamWriter(path + "List.txt", (bool)(cbRewriteFile.IsChecked));
+                StreamWriter stream = new StreamWriter(path + "List.txt", true);
                 if (URL != "")
-                stream.WriteLine(URL);
+                    stream.WriteLine(value+" : "+URL);
                 stream.Close();
                 if (cbRewriteFile.IsChecked == false) cbRewriteFile.IsChecked = true;
             }
@@ -206,6 +227,7 @@ namespace WpfApplication1
                 StreamReader str = new StreamReader(path + "List.txt");
                 string line = "<html><body bgColor='black'><center>";
                 int initCount = 0;
+                double width=0;
                 while (initCount <= offset)
                 {
                     if (initCount != 0) str.ReadLine();
@@ -213,8 +235,11 @@ namespace WpfApplication1
                 }
                 for (int count = 0; count < limit; count++)
                 {
+                    if (limit<=2) width = webBrowser1.Width / limit-1; else width = webBrowser1.Width / (Math.Sqrt(limit));
                     String itemURL = str.ReadLine();
-                    line += "<a href=\"" + itemURL + "\"><img style=\"border:0px\" width=\"" + webBrowser1.Width / (Math.Sqrt(limit)) + "\"src=\"" + itemURL + "\"/></a>&nbsp;";
+                    line += "<a href=\"" + itemURL.Substring(itemURL.IndexOf(':')+1) + "\"><img style=\"border:0px\" "
+                    +"width=\"" + width + "\""
+                    +"src=\""+ path + itemURL.Substring(0, itemURL.IndexOf(':')-1) + itemURL.Substring(itemURL.LastIndexOf('.')) + "\"/></a>&nbsp;";
                 }
                 line = line + "</center><body></html>";
                 webBrowser1.NavigateToString(line);
@@ -248,20 +273,18 @@ namespace WpfApplication1
                 lPage.Content = "/ " + Convert.ToString((Hebus.countMyLink()/limit)+1);
                 readMore.Close();
             }
-            else webBrowser1.NavigateToString("<center>Vous n'avez pas encore recupere de liens</center>");
+            else webBrowser1.NavigateToString("<center>Vous n'avez pas encore recupere d'imagess</center>");
         }
 
-        public void comboBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Window_Closing(object sender, CancelEventArgs e)
         {
-            switch (comboBox1.Items.CurrentPosition)
-            {
-                case 0:
-                    Hebus.getMaxImages();
-                    break;
-                default:
-                    break;
-            }
+            item.Close();
+            this.Close();
         }
 
+        private void progressBar1_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            Console.WriteLine("ok");
+        }
     }
 }
