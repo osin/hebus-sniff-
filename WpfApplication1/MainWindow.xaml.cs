@@ -34,8 +34,6 @@ namespace WpfApplication1
             item = new Hebus();
             pagination();
             currentList = path + comboBox1.Text + ".txt";
-            Console.WriteLine(path + "log");
-            Console.WriteLine(currentList);
             textBlockInfos.Content = "Il y'a " + Convert.ToString(hebusMaximage) + " images sur Hebus";
             try
             {
