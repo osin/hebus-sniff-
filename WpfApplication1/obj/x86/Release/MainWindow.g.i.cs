@@ -224,6 +224,14 @@ namespace WpfApplication1 {
         #line default
         #line hidden
         
+        
+        #line 39 "..\..\..\MainWindow.xaml"
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        internal System.Windows.Controls.Button button2;
+        
+        #line default
+        #line hidden
+        
         private bool _contentLoaded;
         
         /// <summary>
@@ -385,6 +393,15 @@ namespace WpfApplication1 {
             
             #line 38 "..\..\..\MainWindow.xaml"
             this.progressBar1.ValueChanged += new System.Windows.RoutedPropertyChangedEventHandler<double>(this.progressBar1_ValueChanged);
+            
+            #line default
+            #line hidden
+            return;
+            case 25:
+            this.button2 = ((System.Windows.Controls.Button)(target));
+            
+            #line 39 "..\..\..\MainWindow.xaml"
+            this.button2.Click += new System.Windows.RoutedEventHandler(this.button2_Click_1);
             
             #line default
             #line hidden

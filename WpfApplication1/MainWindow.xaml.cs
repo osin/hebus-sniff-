@@ -36,6 +36,7 @@ namespace WpfApplication1
                 textBoxDebut.Text = read.ReadLine();
                 textBoxLimit.Text = read.ReadLine();
                 read.Close();
+                textBlockInfos.Content = "Il y'a " + Convert.ToString(Hebus.getMaxImages() + " images sur Hebus");
             }
             catch (Exception)
             {
