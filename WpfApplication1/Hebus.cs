@@ -12,8 +12,7 @@ namespace WpfApplication1
         public void hebus()
         {
             int hebusMaxImages = getMaxImages();
-            if (int.Parse(textBoxLimit.Text) > (hebusMaxImages))
-                textBoxLimit.Text = Convert.ToString(hebusMaxImages);
+            comboBoxLimit.Items.Add(Convert.ToString(hebusMaxImages));
             webBrowser1.NavigateToString("<html><body background color='black'></body></html>");
             textBlockInfos.Content = "Il y'a " + Convert.ToString(hebusMaxImages + " images sur Hebus");
         }
@@ -106,7 +105,7 @@ namespace WpfApplication1
         
         public static int countMyLink()
         {
-            StreamReader str = new StreamReader(MainWindow.path + "List.txt");
+            StreamReader str = new StreamReader(MainWindow.currentList);
             int count = 0;
             while (!str.EndOfStream)
             {
@@ -121,7 +120,7 @@ namespace WpfApplication1
         {
             try
             {
-                if ((int.Parse(textBoxDebut.Text) >= 0) && (int.Parse(textBoxLimit.Text) > int.Parse(textBoxDebut.Text)))
+                if (int.Parse(textBoxDebut.Text) >= 0)
                     varNb = 0;
                 else
                 {
@@ -134,7 +133,6 @@ namespace WpfApplication1
             {
                 {
                     textBoxDebut.Text = "?";
-                    textBoxLimit.Text = "?";
                 }
                 return false;
             }
@@ -146,11 +144,11 @@ namespace WpfApplication1
             {
                 try
                 {
-                    if (!File.Exists(path + "List.txt"))
+                    if (!File.Exists(currentList))
                     {
                         System.IO.Directory.CreateDirectory(path);
                         StreamWriter stream = new StreamWriter(path + "log", true);
-                        stream.WriteLine(textBoxDebut.Text + "\n" + textBoxLimit.Text);
+                        stream.WriteLine(limit);
                         stream.Close();
                     }
                 }

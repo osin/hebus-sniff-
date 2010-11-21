@@ -17,9 +17,11 @@ namespace WpfApplication1
         public int offset = 0;
         public int limit = 2;
         public static string path = @"c:\Images\";
+        public static string currentList = "";
         DateTime time = new DateTime();
         Hebus item;
         WebClient ei = new WebClient();
+        int hebusMaximage = 0;
 
         public MainWindow()
         {
@@ -30,18 +32,17 @@ namespace WpfApplication1
         {
             try
             {
+                hebusMaximage=Hebus.getMaxImages();
                 item = new Hebus();
                 pagination();
                 StreamReader read = new StreamReader(path + "log");
                 textBoxDebut.Text = read.ReadLine();
-                textBoxLimit.Text = read.ReadLine();
                 read.Close();
-                textBlockInfos.Content = "Il y'a " + Convert.ToString(Hebus.getMaxImages() + " images sur Hebus");
-            }
+                textBlockInfos.Content = "Il y'a " + Convert.ToString(hebusMaximage) + " images sur Hebus";
+                currentList = path + comboBox1.Text + ".txt";            }
             catch (Exception)
             {
                 textBoxDebut.Text = "0";
-                textBoxLimit.Text = "10";
                 textBlockInfos.Content = "Initialization";
             }
         }
@@ -53,8 +54,10 @@ namespace WpfApplication1
 
         private void buttonGo_Click(object sender, RoutedEventArgs e)
         {
+
                 DateTime time = new DateTime();
                 time = DateTime.Now;
+                hebusMaximage = Hebus.getMaxImages();
                 item.process();
                 if (cbRewriteFile.IsChecked == false)
                 {
@@ -70,11 +73,11 @@ namespace WpfApplication1
                         }
                 }
                 buttonGo.IsEnabled = false;
-                for (value = int.Parse(textBoxDebut.Text); value <= int.Parse(textBoxLimit.Text); value++)
+                for (value = int.Parse(textBoxDebut.Text); value <= int.Parse(textBoxDebut.Text)+int.Parse(comboBoxLimit.Text); value++)
                 {
+                    if (value <= hebusMaximage) ;
                     operate();
-                    progressBar1.Value = (100 / (int.Parse(textBoxLimit.Text)) * value);
-                    //if (value%100==0) MessageBox.Show("Mise a jour", "Informations", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK, MessageBoxOptions.None);
+                    progressBar1.Value = (100 / ((int.Parse(textBoxDebut.Text)) + (int.Parse(comboBoxLimit.Text))) * value);
                 }
                 buttonGo.IsEnabled = true;
                 textBlockVarNB.Text = (Convert.ToString(varNb));
@@ -83,7 +86,7 @@ namespace WpfApplication1
                 try
                 {
                     StreamWriter logger = new StreamWriter(path + "log", false);
-                    logger.WriteLine(textBoxLimit.Text + "\n" + (int.Parse(textBoxLimit.Text) + 10));
+                    logger.WriteLine(value);
                     logger.Close();
                 }
                 catch (Exception i)
@@ -92,11 +95,11 @@ namespace WpfApplication1
                 }
                 textBlockInfos.Content = "Les images sont copiées dans: " + path;
                 textBlockState.Text = "Etat: Terminé";
-                textBoxDebut.Text = Convert.ToString(int.Parse(textBoxLimit.Text) + 1);
-                textBoxLimit.Text = Convert.ToString(int.Parse(textBoxLimit.Text) + 11);
+                textBoxDebut.Text = Convert.ToString(value+1);
                 readResult();
                 pagination();
                 ei.Dispose();
+                hebusMaximage = Hebus.getMaxImages();
         }
 
         public void operate()
@@ -210,7 +213,7 @@ namespace WpfApplication1
             try
             {
                 if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-                StreamWriter stream = new StreamWriter(path + "List.txt", true);
+                StreamWriter stream = new StreamWriter(currentList, true);
                 if (URL != "")
                     stream.WriteLine(value + " : " + item.Categorize(value) + value + URL.Substring(URL.LastIndexOf('.')));
                 stream.Flush();
@@ -242,7 +245,7 @@ namespace WpfApplication1
         {
             try
             {
-                StreamReader str = new StreamReader(path + "List.txt");
+                StreamReader str = new StreamReader(currentList);
                 string line = "<html><body bgColor='black'><center>";
                 int initCount = 0;
                 double width=0;
@@ -271,11 +274,11 @@ namespace WpfApplication1
 
         public void pagination()
         {
-            if (File.Exists(path + "list.txt"))
+            if (File.Exists(path + comboBox1.Text + ".txt"))
             {
                 if (offset> 0) btPrec.IsEnabled = true;
                 button1.IsEnabled = true;
-                StreamReader readMore = new StreamReader(path + "list.txt");
+                StreamReader readMore = new StreamReader(currentList);
                 for (int count = 0; count < limit + 1; count++)
                     if (readMore.ReadLine() != null && count >= limit)
                     {
@@ -303,6 +306,11 @@ namespace WpfApplication1
         private void progressBar1_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             //not implemented
+        }
+
+        private void comboBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            currentList = path + comboBox1.Text +".txt";
         }
     }
 }
