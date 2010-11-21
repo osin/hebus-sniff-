@@ -30,7 +30,7 @@
         <TextBox Height="23" HorizontalAlignment="Left" Margin="485,113,0,0" Name="tbImgPage" VerticalAlignment="Top" Width="32" Text="9" Grid.Column="1" />
         <Label Content="Nombre d'images par page :" Height="28" HorizontalAlignment="Left" Margin="321,113,0,0" Name="lNbImagesPage" VerticalAlignment="Top" Width="173" Grid.Column="1" />
         <Button Content="OK" Height="23" HorizontalAlignment="Left" Margin="523,113,0,0" Name="btImgPage" VerticalAlignment="Top" Width="33" Click="button2_Click" IsEnabled="False" Grid.Column="1" />
-        <CheckBox Content="Ajouter" Height="20" HorizontalAlignment="Left" Margin="12,118,0,0" Name="cbRewriteFile" VerticalAlignment="Top" Visibility="Visible" Width="120" IsChecked="True" Checked="cbRewriteFile_Checked" Unchecked="cbRewriteFile_Unchecked" Grid.ColumnSpan="2" />
+        <CheckBox Content="Ajouter" Height="20" Margin="12,118,914,0" Name="cbRewriteFile" VerticalAlignment="Top" Visibility="Visible" IsChecked="True" Checked="cbRewriteFile_Checked" Unchecked="cbRewriteFile_Unchecked" Grid.ColumnSpan="2" />
         <ComboBox Height="23" HorizontalAlignment="Left" Margin="12,12,0,0" Name="comboBox1" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2">
             <ComboBoxItem Content="Hebus" IsSelected="True" />
             <ComboBoxItem Content="Steffi" IsEnabled="False" />

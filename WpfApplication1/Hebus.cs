@@ -37,7 +37,50 @@ namespace WpfApplication1
                 return 0;
             }
         }
-
+        
+        public String getName(int value)
+        {
+            try
+            {
+                String source = this.getSource(value, "http://www.hebus.com/imagefull-");
+                int index = source.IndexOf("<img class=\"tn\" src=\"", 2000);
+                string line = source.Substring(index, 500);
+                string name=line.Substring(line.IndexOf("alt=\"")+5, line.IndexOf('/'));
+                Console.WriteLine(name);
+                return name;
+            }
+            catch (Exception e)
+            {
+                log(e);
+                return "";
+            }
+        }
+        public string Categorize(int value)
+        {
+            try
+            {
+                String source = this.getSource(value, "http://www.hebus.com/image-");
+                int index = source.IndexOf("Accueil Hebus.com", 700);
+                string line = source.Substring(index, 400);
+                line = line.Substring(line.IndexOf(" class=\"fil\"") + 50, line.IndexOf("</div>") - 80);
+                line = line.Substring(line.IndexOf("href") + 6);
+                line = line.Remove(line.IndexOf("class"));
+                line.Remove(line.LastIndexOf("html"));
+                string[] lines = line.Split('/');
+                line = "";
+                for (int i = 0; i <= 2; i++)
+                {
+                    if (lines[i][lines[i].Length - 1] == '.')
+                        lines[i] = lines[i].Remove(lines[i].Length - 1);
+                    line += lines[i] + "\\";
+                }
+                return line;
+            }
+            catch (Exception e)
+            {
+                return "Unknow\\";
+            }
+        }
         public String getImageURL(int value)
         {
             try

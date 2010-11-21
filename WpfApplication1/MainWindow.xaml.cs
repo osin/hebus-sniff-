@@ -57,17 +57,25 @@ namespace WpfApplication1
                 item.process();
                 if (cbRewriteFile.IsChecked == false)
                 {
-                    MessageBoxResult result = MessageBox.Show("Souhaitez vous supprimer le dossier " + path + " ?", "Attention", MessageBoxButton.YesNo);
+                    MessageBoxResult result = MessageBox.Show("Souhaitez vous supprimer le dossier " + path + " ?", "Attention", MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (result == MessageBoxResult.Yes)
-                        Directory.Delete(path, true);
+                        try
+                        {
+                            Directory.Delete(path, true);
+                        }
+                        catch (Exception i)
+                        {
+                            MessageBox.Show("Erreur : " + i.ToString() + "\n Certains dossiers peuvent ne pas être supprimer", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
                 }
+                buttonGo.IsEnabled = false;
                 for (value = int.Parse(textBoxDebut.Text); value <= int.Parse(textBoxLimit.Text); value++)
                 {
                     operate();
                     progressBar1.Value = (100 / (int.Parse(textBoxLimit.Text)) * value);
                     //if (value%100==0) MessageBox.Show("Mise a jour", "Informations", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK, MessageBoxOptions.None);
                 }
-
+                buttonGo.IsEnabled = true;
                 textBlockVarNB.Text = (Convert.ToString(varNb));
                 DateTime elapse = DateTime.Now;
                 textBlockDuree.Text = elapse.Subtract(time).Hours.ToString() + "H -" + elapse.Subtract(time).Minutes.ToString() + "M -" + elapse.Subtract(time).Seconds.ToString() + 'S';
@@ -81,7 +89,7 @@ namespace WpfApplication1
                 {
                     MainWindow.log(i);
                 }
-                textBlockInfos.Content = "La liste d'image est copiée dans: " + path;
+                textBlockInfos.Content = "Les images sont copiées dans: " + path;
                 textBlockState.Text = "Etat: Terminé";
                 textBoxDebut.Text = Convert.ToString(int.Parse(textBoxLimit.Text) + 1);
                 textBoxLimit.Text = Convert.ToString(int.Parse(textBoxLimit.Text) + 11);
@@ -96,17 +104,23 @@ namespace WpfApplication1
                 String URL = item.getImageURL(value);
                 writeImageURL(URL);
                 getImage(URL);
-                Console.WriteLine(progressBar1.Value);
+                //item.getName(value);
+
             }
         }
-        public bool getImage(String url)
+        public void getImage(String url)
         {
-            if (url != "")
+            try
             {
-                ei.DownloadFile(url,path+value+(url.Substring(url.LastIndexOf('.'))));
-                return true;
+                {
+                    if (!Directory.Exists(path + item.Categorize(value))) Directory.CreateDirectory(path + item.Categorize(value));
+                    ei.DownloadFile(url, path + item.Categorize(value) + value + (url.Substring(url.LastIndexOf('.'))));
+                }
             }
-            else return false;
+            catch (Exception e)
+            {
+                log(e);
+            }
         }
         
         private void btPrec_Click(object sender, RoutedEventArgs e)
@@ -197,7 +211,8 @@ namespace WpfApplication1
                 if (!Directory.Exists(path)) Directory.CreateDirectory(path);
                 StreamWriter stream = new StreamWriter(path + "List.txt", true);
                 if (URL != "")
-                    stream.WriteLine(value+" : "+URL);
+                    stream.WriteLine(value + " : " + item.Categorize(value) + value + URL.Substring(URL.LastIndexOf('.')));
+                stream.Flush();
                 stream.Close();
                 if (cbRewriteFile.IsChecked == false) cbRewriteFile.IsChecked = true;
             }
@@ -218,6 +233,7 @@ namespace WpfApplication1
             System.IO.Directory.CreateDirectory(path);
             StreamWriter stream = new StreamWriter(path + "errors", true);
             stream.WriteLine(">" + DateTime.Now + " : " + e.ToString());
+            stream.Flush();
             stream.Close();
         }
 
@@ -238,9 +254,9 @@ namespace WpfApplication1
                 {
                     if (limit<=2) width = webBrowser1.Width / limit-1; else width = webBrowser1.Width / (Math.Sqrt(limit));
                     String itemURL = str.ReadLine();
-                    line += "<a href=\"" + itemURL.Substring(itemURL.IndexOf(':')+1) + "\"><img style=\"border:0px\" "
+                    line += "<a href=\"" + path+itemURL.Substring(itemURL.IndexOf(':')+2) + "\"><img style=\"border:0px\" "
                     +"width=\"" + width + "\""
-                    +"src=\""+ path + itemURL.Substring(0, itemURL.IndexOf(':')-1) + itemURL.Substring(itemURL.LastIndexOf('.')) + "\"/></a>&nbsp;";
+                    + "src=\"" + path + itemURL.Substring(itemURL.IndexOf(':') + 2) + "\"/></a>&nbsp;";
                 }
                 line = line + "</center><body></html>";
                 webBrowser1.NavigateToString(line);
@@ -285,7 +301,7 @@ namespace WpfApplication1
 
         private void progressBar1_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            Console.WriteLine("ok");
+            //not implemented
         }
     }
 }
