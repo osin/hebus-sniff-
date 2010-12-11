@@ -42,11 +42,12 @@ namespace WpfApplication1
             try
             {
                 String source = this.getSource(value, "http://www.hebus.com/imagefull-");
-                int index = source.IndexOf("<img class=\"tn\" src=\"", 2000);
-                string line = source.Substring(index, 500);
-                string name=line.Substring(line.IndexOf("alt=\"")+5, line.IndexOf('/'));
-                Console.WriteLine(name);
-                return name;
+                int index = source.IndexOf("<title>", 100);
+                string line = source.Substring(index, source.IndexOf(" - Hebus.com"));
+                line = line.Substring(line.IndexOf('>'), line.IndexOf('-'));
+                line = line.Substring(line.LastIndexOf('>')+2);
+                line = line.Remove(line.IndexOf('-') - 1) ;
+                return line;
             }
             catch (Exception e)
             {
@@ -116,33 +117,10 @@ namespace WpfApplication1
             return count;
         }
 
-        public bool control()
-        {
-            try
-            {
-                if (int.Parse(textBoxDebut.Text) >= 0)
-                    varNb = 0;
-                else
-                {
-                    textBlockState.Text = "Valeurs incorrecte";
-                    return false;
-                }
-                return true;
-            }
-            catch (Exception)
-            {
-                {
-                    textBoxDebut.Text = "?";
-                }
-                return false;
-            }
-        }
 
         public void process()
         {
-            if (this.control())
-            {
-                try
+            try
                 {
                     if (!File.Exists(currentList))
                     {
@@ -157,8 +135,6 @@ namespace WpfApplication1
                     textBlockState.Text = "Erreur accès au fichier";
                     MainWindow.log(i);
                 }
-
-            }
         }
     }
 }

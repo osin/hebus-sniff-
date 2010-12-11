@@ -29,7 +29,7 @@
     <TargetCulture>fr</TargetCulture>
     <ProductName>HebusSniff</ProductName>
     <PublisherName>Essozi.com</PublisherName>
-    <ApplicationRevision>66</ApplicationRevision>
+    <ApplicationRevision>70</ApplicationRevision>
     <ApplicationVersion>1.3.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -155,16 +155,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Konachan.com - 79862 k-on! manabe_nodoka.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Bitmap1.bmp" />
+    <Resource Include="CR_CS_WEBFORM_PROJ.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="CR_CS_WEBFORM_PROJ.ico" />
+    <Resource Include="Images\009 %282%29.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

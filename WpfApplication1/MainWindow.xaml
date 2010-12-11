@@ -1,44 +1,50 @@
 ﻿<Window x:Class="WpfApplication1.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="HebusSniff" Width="1000" Icon="/WpfApplication1;component/Images/45.jpg" AllowsTransparency="False" WindowStartupLocation="CenterOwner" Topmost="False" WindowStyle="ThreeDBorderWindow" ResizeMode="CanResizeWithGrip" Background="{StaticResource {x:Static SystemColors.ControlTextBrushKey}}" BorderThickness="1" WindowState="Normal" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="627" Height="636">
-    <Grid Height="176" Width="1000" Loaded="Grid_Loaded" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+        Title="HebusSniff" Icon="/WpfApplication1;component/Images/45.jpg" AllowsTransparency="False" WindowStartupLocation="CenterOwner" Topmost="False" WindowStyle="ThreeDBorderWindow" ResizeMode="CanResizeWithGrip" Background="{StaticResource {x:Static SystemColors.ControlTextBrushKey}}" BorderThickness="1" WindowState="Normal" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Height="646" Width="988">
+    <Grid Loaded="Grid_Loaded" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" OpacityMask="{x:Null}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="250*" />
+            <RowDefinition Height="86*" />
+            <RowDefinition Height="275*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="35*" />
-            <ColumnDefinition Width="965*" />
+            <ColumnDefinition Width="199*" />
+            <ColumnDefinition Width="765*" />
         </Grid.ColumnDefinitions>
-        <Grid.Background>
-            <ImageBrush ImageSource="/WpfApplication1;component/Images/Konachan.com%20-%2079862%20k-on!%20manabe_nodoka.jpg" Stretch="UniformToFill" TileMode="None" />
-        </Grid.Background>
-        <TextBlock HorizontalAlignment="Left" Margin="321,6,0,147" Name="textBlockLimit" Text="Images à télécharger" Width="147" FontSize="15" Grid.Column="1" />
-        <Button Content="GO !" Height="67" HorizontalAlignment="Left" Margin="12,48,0,0" Name="buttonGo" VerticalAlignment="Top" Width="149" FontSize="15" GotFocus="Window_gotFocus" Click="buttonGo_Click" IsTabStop="False" Grid.ColumnSpan="2" IsManipulationEnabled="False" CommandTarget="{Binding UpdateSourceTrigger=Explicit, IsAsync=True}" ClipToBounds="True" />
-        <TextBlock HorizontalAlignment="Center" Margin="135,29,416,110" Name="textBlockState" Text="Etat : Inactif" Width="414" FontSize="22" FontStyle="Italic" Grid.Column="1"><TextBlock.TextEffects><TextEffect Foreground="#FFDE1414" PositionCount="4" /></TextBlock.TextEffects></TextBlock>
-        <TextBlock Margin="135,146,0,5" Name="textBlockCopied" Text="Images copiées: " FontSize="15" Grid.Column="1" HorizontalAlignment="Left" Width="105" />
-        <TextBlock Height="23" HorizontalAlignment="Left" Margin="106,3,0,0" Name="textBlock3" Text="Commencer à" VerticalAlignment="Top" Width="105" FontSize="15" Grid.Column="1" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="217,3,0,0" Name="textBoxDebut" VerticalAlignment="Top" Width="75" FontSize="15" Text="" Grid.Column="1" />
-        <TextBlock HorizontalAlignment="Right" Name="textBlockVarNB" Text="" Width="69" FontSize="18" TextTrimming="WordEllipsis" TextWrapping="WrapWithOverflow" VerticalAlignment="Top" Grid.Column="1" Margin="0,146,650,0" Height="25" />
-        <Label Content="" Margin="135,90,627,0" Name="textBlockInfos" FontWeight="Bold" FontStyle="Italic" FontSize="10" VerticalAlignment="Top" Grid.Column="1" Height="25"/>
-        <TextBlock FontSize="15" Height="23" HorizontalAlignment="Left" Margin="135,118,0,0" Name="textBlockDuree" Text="" VerticalAlignment="Top" Width="157" Grid.Column="1" />
-        <Button Content="Voir la liste" Height="30" HorizontalAlignment="Left" Margin="12,139,0,0" Name="button1" VerticalAlignment="Top" Width="149" IsEnabled="False" Click="button1_Click" Grid.ColumnSpan="2" />
-        <WebBrowser HorizontalAlignment="Stretch" Name="webBrowser1" VerticalAlignment="Stretch" FlowDirection="LeftToRight" MinWidth="800" MinHeight="100" Width="1000" Margin="1,177,-1,-101" Grid.ColumnSpan="2" Height="400" />
-        <Button Content="Précédent" Height="23" HorizontalAlignment="Left" Margin="379,82,0,0" Name="btPrec" VerticalAlignment="Top" Width="75" Click="btPrec_Click" IsEnabled="False" Grid.Column="1" />
-        <Button Content="Suivant" Height="25" HorizontalAlignment="Left" Margin="474,82,0,0" Name="btSuiv" VerticalAlignment="Top" Width="75" Click="btSuiv_Click" IsEnabled="False" Grid.Column="1" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="460,146,0,0" Name="tbPage" VerticalAlignment="Top" Width="42" Text="1" AcceptsTab="True" AcceptsReturn="False" IsEnabled="False" TextAlignment="Center" Grid.Column="1" />
-        <Button Content="Accéder à la page" Height="23" HorizontalAlignment="Left" Margin="321,146,0,0" Name="btVoir" VerticalAlignment="Top" Width="133" IsEnabled="False" Click="btVoir_Click" Grid.Column="1" />
-        <Label Height="23" HorizontalAlignment="Left" Margin="507,146,0,0" Name="lPage" VerticalAlignment="Top" Width="42" Grid.Column="1" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="485,113,0,0" Name="tbImgPage" VerticalAlignment="Top" Width="32" Text="9" Grid.Column="1" />
-        <Label Content="Nombre d'images par page :" Height="28" HorizontalAlignment="Left" Margin="321,113,0,0" Name="lNbImagesPage" VerticalAlignment="Top" Width="173" Grid.Column="1" />
-        <Button Content="OK" Height="23" HorizontalAlignment="Left" Margin="523,113,0,0" Name="btImgPage" VerticalAlignment="Top" Width="33" Click="button2_Click" IsEnabled="False" Grid.Column="1" />
-        <CheckBox Content="Ajouter" Height="20" Margin="12,118,914,0" Name="cbRewriteFile" VerticalAlignment="Top" Visibility="Visible" IsChecked="True" Checked="cbRewriteFile_Checked" Unchecked="cbRewriteFile_Unchecked" Grid.ColumnSpan="2" />
-        <ComboBox Height="23" HorizontalAlignment="Left" Margin="12,12,0,0" Name="comboBox1" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2" SelectionChanged="comboBox1_SelectionChanged">
+        <TextBlock Margin="12,66,82,157" Name="textBlockLimit" Text="Télécharger" Width="105" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <Button Content="GO !" Height="67" HorizontalAlignment="Left" Margin="12,185,0,0" Name="buttonGo" VerticalAlignment="Top" Width="181" FontSize="15" GotFocus="Window_gotFocus" Click="buttonGo_Click" IsTabStop="False" IsManipulationEnabled="False" CommandTarget="{Binding UpdateSourceTrigger=Explicit, IsAsync=True}" ClipToBounds="True" Grid.Row="2" />
+        <TextBlock Margin="12,219,0,0" Name="textBlockState" Text="Etat : Inactif" Width="186" FontSize="22" FontStyle="Italic" VerticalAlignment="Top" HorizontalAlignment="Left"><TextBlock.TextEffects><TextEffect Foreground="#FFDE1414" PositionCount="4" /></TextBlock.TextEffects></TextBlock>
+        <TextBlock Margin="12,2,0,0" Name="textBlockCopied" Text="Images copiées: " FontSize="15" Width="105" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="12,37,0,0" Name="textBlock3" Text="Commencer à" VerticalAlignment="Top" Width="105" FontSize="15" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="122,37,0,0" Name="textBoxDebut" VerticalAlignment="Top" Width="75" FontSize="15" Text="" />
+        <TextBlock Name="textBlockVarNB" Text="" Width="69" FontSize="18" TextTrimming="WordEllipsis" TextWrapping="WrapWithOverflow" Margin="130,3,0,0" Height="25" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <Label Content="" Margin="12,11,0,0" Name="textBlockInfos" FontWeight="Bold" FontStyle="Italic" FontSize="10" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="188" Grid.Row="1" />
+        <TextBlock FontSize="15" Height="23" Margin="12,42,0,0" Name="textBlockDuree" Text="" Width="186" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="1" />
+        <Button Content="Voir la liste" Height="30" HorizontalAlignment="Left" Margin="12,149,0,0" Name="button1" VerticalAlignment="Top" Width="181" IsEnabled="False" Click="button1_Click" Grid.Row="2" />
+        <WebBrowser Name="webBrowser1" FlowDirection="LeftToRight" Grid.Column="1" Grid.RowSpan="4" Margin="0,3,0,-3">
+            <WebBrowser.OpacityMask>
+                <ImageBrush />
+            </WebBrowser.OpacityMask>
+        </WebBrowser>
+        <Button Content="Précédent" Height="23" HorizontalAlignment="Left" Margin="12,48,0,0" Name="btPrec" VerticalAlignment="Top" Width="74" Click="btPrec_Click" IsEnabled="False" Grid.Row="2" />
+        <Button Content="Suivant" Height="23" HorizontalAlignment="Left" Margin="122,48,0,0" Name="btSuiv" Width="75" Click="btSuiv_Click" IsEnabled="False" Grid.Row="2" VerticalAlignment="Top" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="122,83,0,0" Name="tbPage" VerticalAlignment="Top" Width="32" Text="1" AcceptsTab="True" AcceptsReturn="False" IsEnabled="False" TextAlignment="Center" Grid.Row="2" />
+        <Button Content="Accéder à la page :" Height="23" Margin="12,82,0,0" Name="btVoir" Width="105" IsEnabled="False" Click="btVoir_Click" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <TextBox Height="23" Margin="12,116,0,0" Name="tbImgPage" Width="32" Text="9" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <Label Content="images par page :" Height="28" Margin="49,116,0,0" Name="lNbImagesPage" Width="105" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <Button Content="OK" Height="23" Margin="160,118,0,0" Name="btImgPage" Width="33" Click="button2_Click" IsEnabled="False" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <CheckBox Content="Ajouter" Height="20" Margin="11,160,0,0" Name="cbRewriteFile" Visibility="Visible" IsChecked="True" Checked="cbRewriteFile_Checked" Unchecked="cbRewriteFile_Unchecked" HorizontalAlignment="Left" VerticalAlignment="Top" Width="74" />
+        <ComboBox Height="23" HorizontalAlignment="Left" Margin="12,12,0,0" Name="comboBox1" VerticalAlignment="Top" Width="186" SelectionChanged="comboBox1_SelectionChanged">
             <ComboBoxItem Content="Hebus" IsSelected="True" />
-            <ComboBoxItem Content="Steffi" IsEnabled="False" />
+            <ComboBoxItem Content="Steffi" IsEnabled="False" Visibility="Hidden" />
         </ComboBox>
-        <ProgressBar Grid.Column="1" Height="28" HorizontalAlignment="Left" Margin="135,58,0,0" Name="progressBar1" VerticalAlignment="Top" Width="157" ValueChanged="progressBar1_ValueChanged" />
-        <ComboBox Height="23" HorizontalAlignment="Left" Margin="474,6,0,0" Name="comboBoxLimit" VerticalAlignment="Top" Width="82" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+        <ProgressBar Height="31" Margin="10,108,0,0" Name="progressBar1" Width="186" ValueChanged="progressBar1_ValueChanged" VerticalAlignment="Top" HorizontalAlignment="Left" />
+        <ComboBox Height="29" Margin="122,63,0,0" Name="comboBoxLimit" Width="75" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top">
             <ComboBoxItem Content="1" />
-            <ComboBoxItem Content="10" />
-            <ComboBoxItem Content="50" IsSelected="True" />
+            <ComboBoxItem Content="10" IsSelected="True" />
+            <ComboBoxItem Content="50" />
             <ComboBoxItem Content="100" />
             <ComboBoxItem Content="250" />
             <ComboBoxItem Content="500" />
@@ -53,6 +59,11 @@
             <ComboBoxItem Content="500000" />
             <ComboBoxItem Content="999999" />
         </ComboBox>
+        <Label Grid.Row="2" Height="24" Margin="160,82,0,0" Name="lPage" Width="37" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <CheckBox Content="Récupérer les noms (Beta !)" Height="20" HorizontalAlignment="Left" IsChecked="False" Margin="11,186,0,0" Name="cbNom" VerticalAlignment="Top" Visibility="Visible" Width="186" />
+        <Grid.Background>
+            <ImageBrush ImageSource="/WpfApplication1;component/Images/009%20%282%29.jpg" />
+        </Grid.Background>
     </Grid>
 </Window>
      

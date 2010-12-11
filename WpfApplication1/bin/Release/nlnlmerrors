@@ -1,0 +1,132 @@
+>30/11/2010 23:34:07 : System.Net.WebException: Le serveur distant a retourné une erreur : (404) Introuvable.
+   à System.Net.HttpWebRequest.GetResponse()
+   à WpfApplication1.MainWindow.getSource(Int32 limit, String source) dans D:\Workspace\Visual Studio 2010\HebusSniff\WpfApplication1\MainWindow.xaml.cs:ligne 205
+>30/11/2010 23:34:07 : System.ArgumentOutOfRangeException: L'index était hors limites. Il ne doit pas être négatif et doit être inférieur à la taille de la collection.
+Nom du paramètre : startIndex
+   à System.String.IndexOf(String value, Int32 startIndex, Int32 count, StringComparison comparisonType)
+   à System.String.IndexOf(String value, Int32 startIndex)
+   à WpfApplication1.Hebus.getImageURL(Int32 value) dans D:\Workspace\Visual Studio 2010\HebusSniff\WpfApplication1\Hebus.cs:ligne 89
+>30/11/2010 23:34:08 : System.IO.DirectoryNotFoundException: Impossible de trouver une partie du chemin d'accès 'c:\Images\Hebus.txt'.
+   à System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   à System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath)
+   à System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   à System.IO.StreamWriter.CreateFile(String path, Boolean append)
+   à System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize)
+   à System.IO.StreamWriter..ctor(String path, Boolean append)
+   à WpfApplication1.MainWindow.writeImageURL(String URL, String name) dans D:\Workspace\Visual Studio 2010\HebusSniff\WpfApplication1\MainWindow.xaml.cs:ligne 224
+>30/11/2010 23:34:08 : System.Net.WebException: Le serveur distant a retourné une erreur : (404) Introuvable.
+   à System.Net.HttpWebRequest.GetResponse()
+   à WpfApplication1.MainWindow.getSource(Int32 limit, String source) dans D:\Workspace\Visual Studio 2010\HebusSniff\WpfApplication1\MainWindow.xaml.cs:ligne 205
+>30/11/2010 23:34:08 : System.Net.WebException: Le serveur distant a retourné une erreur : (404) Introuvable.
+   à System.Net.HttpWebRequest.GetResponse()
+   à WpfApplication1.MainWindow.getSource(Int32 limit, String source) dans D:\Workspace\Visual Studio 2010\HebusSniff\WpfApplication1\MainWindow.xaml.cs:ligne 205
+>30/11/2010 23:34:08 : System.Net.WebException: Le serveur distant a retourné une erreur : (404) Introuvable.
+   à System.Net.HttpWebRequest.GetResponse()
+   à WpfApplication1.MainWindow.getSource(Int32 limit, String source) dans D:\Workspace\Visual Studio 2010\HebusSniff\WpfApplication1\MainWindow.xaml.cs:ligne 205
+>30/11/2010 23:34:08 : System.ArgumentOutOfRangeException: StartIndex ne peut pas être inférieur à zéro.
+Nom du paramètre : startIndex
+   à System.String.InternalSubStringWithChecks(Int32 startIndex, Int32 length, Boolean fAlwaysCopy)
+   à System.String.Substring(Int32 startIndex)
+   à WpfApplication1.MainWindow.getImage(String url, String name) dans D:\Workspace\Visual Studio 2010\HebusSniff\WpfApplication1\MainWindow.xaml.cs:ligne 129
+>30/11/2010 23:34:08 : System.IO.DirectoryNotFoundException: Impossible de trouver une partie du chemin d'accès 'c:\Images\Hebus.txt'.
+   à System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   à System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath)
+   à System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   à System.IO.StreamWriter.CreateFile(String path, Boolean append)
+   à System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize)
+   à System.IO.StreamWriter..ctor(String path, Boolean append)
+   à WpfApplication1.MainWindow.writeImageURL(String URL, String name) dans D:\Workspace\Visual Studio 2010\HebusSniff\WpfApplication1\MainWindow.xaml.cs:ligne 224
+>30/11/2010 23:34:10 : System.IO.DirectoryNotFoundException: Impossible de trouver une partie du chemin d'accès 'c:\Images\Hebus.txt'.
+   à System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   à System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath)
+   à System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   à System.IO.StreamWriter.CreateFile(String path, Boolean append)
+   à System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize)
+   à System.IO.StreamWriter..ctor(String path, Boolean append)
+   à WpfApplication1.MainWindow.writeImageURL(String URL, String name) dans D:\Workspace\Visual Studio 2010\HebusSniff\WpfApplication1\MainWindow.xaml.cs:ligne 224
+>30/11/2010 23:34:13 : System.IO.DirectoryNotFoundException: Impossible de trouver une partie du chemin d'accès 'c:\Images\Hebus.txt'.
+   à System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   à System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath)
+   à System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   à System.IO.StreamWriter.CreateFile(String path, Boolean append)
+   à System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize)
+   à System.IO.StreamWriter..ctor(String path, Boolean append)
+   à WpfApplication1.MainWindow.writeImageURL(String URL, String name) dans D:\Workspace\Visual Studio 2010\HebusSniff\WpfApplication1\MainWindow.xaml.cs:ligne 224
+>30/11/2010 23:34:14 : System.ArgumentOutOfRangeException: StartIndex ne peut pas être inférieur à zéro.
+Nom du paramètre : startIndex
+   à System.String.InternalSubStringWithChecks(Int32 startIndex, Int32 length, Boolean fAlwaysCopy)
+   à System.String.Substring(Int32 startIndex)
+   à WpfApplication1.MainWindow.getImage(String url, String name) dans D:\Workspace\Visual Studio 2010\HebusSniff\WpfApplication1\MainWindow.xaml.cs:ligne 129
+>30/11/2010 23:34:14 : System.IO.DirectoryNotFoundException: Impossible de trouver une partie du chemin d'accès 'c:\Images\Hebus.txt'.
+   à System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   à System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath)
+   à System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   à System.IO.StreamWriter.CreateFile(String path, Boolean append)
+   à System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize)
+   à System.IO.StreamWriter..ctor(String path, Boolean append)
+   à WpfApplication1.MainWindow.writeImageURL(String URL, String name) dans D:\Workspace\Visual Studio 2010\HebusSniff\WpfApplication1\MainWindow.xaml.cs:ligne 224
+>30/11/2010 23:34:15 : System.ArgumentOutOfRangeException: StartIndex ne peut pas être inférieur à zéro.
+Nom du paramètre : startIndex
+   à System.String.InternalSubStringWithChecks(Int32 startIndex, Int32 length, Boolean fAlwaysCopy)
+   à System.String.Substring(Int32 startIndex)
+   à WpfApplication1.MainWindow.getImage(String url, String name) dans D:\Workspace\Visual Studio 2010\HebusSniff\WpfApplication1\MainWindow.xaml.cs:ligne 129
+>30/11/2010 23:34:15 : System.IO.DirectoryNotFoundException: Impossible de trouver une partie du chemin d'accès 'c:\Images\Hebus.txt'.
+   à System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   à System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath)
+   à System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   à System.IO.StreamWriter.CreateFile(String path, Boolean append)
+   à System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize)
+   à System.IO.StreamWriter..ctor(String path, Boolean append)
+   à WpfApplication1.MainWindow.writeImageURL(String URL, String name) dans D:\Workspace\Visual Studio 2010\HebusSniff\WpfApplication1\MainWindow.xaml.cs:ligne 224
+>30/11/2010 23:34:17 : System.IO.DirectoryNotFoundException: Impossible de trouver une partie du chemin d'accès 'c:\Images\Hebus.txt'.
+   à System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   à System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath)
+   à System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   à System.IO.StreamWriter.CreateFile(String path, Boolean append)
+   à System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize)
+   à System.IO.StreamWriter..ctor(String path, Boolean append)
+   à WpfApplication1.MainWindow.writeImageURL(String URL, String name) dans D:\Workspace\Visual Studio 2010\HebusSniff\WpfApplication1\MainWindow.xaml.cs:ligne 224
+>30/11/2010 23:34:19 : System.IO.DirectoryNotFoundException: Impossible de trouver une partie du chemin d'accès 'c:\Images\Hebus.txt'.
+   à System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   à System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath)
+   à System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   à System.IO.StreamWriter.CreateFile(String path, Boolean append)
+   à System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize)
+   à System.IO.StreamWriter..ctor(String path, Boolean append)
+   à WpfApplication1.MainWindow.writeImageURL(String URL, String name) dans D:\Workspace\Visual Studio 2010\HebusSniff\WpfApplication1\MainWindow.xaml.cs:ligne 224
+>30/11/2010 23:34:21 : System.IO.DirectoryNotFoundException: Impossible de trouver une partie du chemin d'accès 'c:\Images\Hebus.txt'.
+   à System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   à System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath)
+   à System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   à System.IO.StreamWriter.CreateFile(String path, Boolean append)
+   à System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize)
+   à System.IO.StreamWriter..ctor(String path, Boolean append)
+   à WpfApplication1.MainWindow.writeImageURL(String URL, String name) dans D:\Workspace\Visual Studio 2010\HebusSniff\WpfApplication1\MainWindow.xaml.cs:ligne 224
+>30/11/2010 23:34:24 : System.IO.DirectoryNotFoundException: Impossible de trouver une partie du chemin d'accès 'c:\Images\Hebus.txt'.
+   à System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   à System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath)
+   à System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   à System.IO.StreamWriter.CreateFile(String path, Boolean append)
+   à System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize)
+   à System.IO.StreamWriter..ctor(String path, Boolean append)
+   à WpfApplication1.MainWindow.writeImageURL(String URL, String name) dans D:\Workspace\Visual Studio 2010\HebusSniff\WpfApplication1\MainWindow.xaml.cs:ligne 224
+>30/11/2010 23:34:25 : System.ArgumentOutOfRangeException: StartIndex ne peut pas être inférieur à zéro.
+Nom du paramètre : startIndex
+   à System.String.InternalSubStringWithChecks(Int32 startIndex, Int32 length, Boolean fAlwaysCopy)
+   à System.String.Substring(Int32 startIndex)
+   à WpfApplication1.MainWindow.getImage(String url, String name) dans D:\Workspace\Visual Studio 2010\HebusSniff\WpfApplication1\MainWindow.xaml.cs:ligne 129
+>30/11/2010 23:34:26 : System.IO.DirectoryNotFoundException: Impossible de trouver une partie du chemin d'accès 'c:\Images\Hebus.txt'.
+   à System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   à System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath)
+   à System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   à System.IO.StreamWriter.CreateFile(String path, Boolean append)
+   à System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize)
+   à System.IO.StreamWriter..ctor(String path, Boolean append)
+   à WpfApplication1.MainWindow.writeImageURL(String URL, String name) dans D:\Workspace\Visual Studio 2010\HebusSniff\WpfApplication1\MainWindow.xaml.cs:ligne 224
+>30/11/2010 23:34:28 : System.IO.DirectoryNotFoundException: Impossible de trouver une partie du chemin d'accès 'c:\Images\Hebus.txt'.
+   à System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   à System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath)
+   à System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   à System.IO.StreamReader..ctor(String path, Encoding encoding, Boolean detectEncodingFromByteOrderMarks, Int32 bufferSize)
+   à System.IO.StreamReader..ctor(String path)
+   à WpfApplication1.MainWindow.readResult() dans D:\Workspace\Visual Studio 2010\HebusSniff\WpfApplication1\MainWindow.xaml.cs:ligne 256
